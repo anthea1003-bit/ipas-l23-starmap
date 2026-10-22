@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0c1120">
+<title>科目三星圖</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23FCB316'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0c1120; --bg2:#121a2e; --panel:#151d33; --line:#28324f; --text:#e7ecf7; --muted:#93a0c4;
+  --accent:#FCB316; --ok:#5fd38d; --bad:#f07575; --trap:#f58a8a;
+  --pz:1.1; --pw:390px;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--text);
+  font-family:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:15px;
+  -webkit-text-size-adjust:100%;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:none;padding:0}
+button:disabled{cursor:default}
+#app{position:relative;height:100vh;height:100dvh;display:grid;grid-template-rows:auto 1fr;grid-template-columns:1fr 8px var(--pw)}
+
+/* 標題列 */
+header{grid-column:1/-1;display:flex;align-items:center;gap:14px;
+  padding:calc(8px + var(--sat)) calc(16px + var(--sar)) 8px calc(16px + var(--sal));
+  background:var(--bg2);border-bottom:1px solid var(--line);min-width:0}
+.brand{min-width:0;flex:0 1 auto}
+.brand small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand b{font-size:19px;letter-spacing:.06em;color:var(--accent);white-space:nowrap}
+.switch{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex:0 0 auto}
+.switch a{display:flex;align-items:center;justify-content:center;padding:0 14px;min-height:38px;color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}
+.switch a.on{background:var(--accent);color:#1b1b1b;font-weight:700}
+.stats{display:flex;gap:14px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.stats::-webkit-scrollbar{display:none}
+.stat{min-width:84px;flex:0 0 auto}
+.stat .lbl{font-size:12px;color:var(--muted);white-space:nowrap}
+.stat .pct{font-size:13px;font-weight:700}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:3px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px;transition:width .3s}
+.search{position:relative;flex:0 0 auto}
+.search input{background:var(--bg);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:7px 10px;width:190px;font-size:16px;font-family:inherit}
+.results{position:absolute;top:calc(100% + 4px);left:0;right:0;min-width:260px;background:var(--panel);border:1px solid var(--line);border-radius:10px;z-index:30;max-height:50vh;overflow:auto;display:none}
+.results button{display:block;width:100%;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:15px;min-height:44px}
+.results button span{color:var(--muted);font-size:12px;margin-left:6px}
+.iconbtn{display:none;min-width:44px;min-height:44px;border-radius:10px;font-size:20px;align-items:center;justify-content:center}
+.countdown{text-align:center;line-height:1.05;flex:0 0 auto}
+.countdown b{font-size:24px;color:var(--accent)}
+.countdown small{display:block;font-size:11px;color:var(--muted);white-space:nowrap}
+
+/* 星圖 */
+#mapWrap{position:relative;overflow:hidden;touch-action:none;min-height:0;background:radial-gradient(ellipse at 45% 40%,#17203d 0%,var(--bg) 72%)}
+svg#map{width:100%;height:100%;display:block;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+svg#map.dragging{cursor:grabbing}
+.ring{fill-opacity:.07;stroke-opacity:.45;stroke-width:1.5;stroke-dasharray:4 5}
+.seclabel{font-weight:700;paint-order:stroke;stroke:var(--bg);stroke-width:5px;cursor:pointer}
+.edge{stroke:#a9b8e6;stroke-opacity:.16;stroke-width:1.1}
+.edge.hl{stroke:var(--accent);stroke-opacity:.9;stroke-width:2}
+svg.focus .edge:not(.hl){stroke-opacity:.05}
+svg.focus .node:not(.nb):not(.dim){opacity:.35}
+.node{cursor:pointer}
+.node .dot{stroke-width:2.2}
+.node .halo{fill:none;stroke:var(--accent);stroke-width:2.5;opacity:0}
+.node.sel .halo{opacity:1}
+.node .wr{fill:none;stroke:var(--bad);stroke-width:3;opacity:0}
+.node.err .wr{opacity:1}
+.node .hit{fill:transparent}
+.node .bread{opacity:0;pointer-events:none}
+.node.toast .bread{opacity:1}
+.node.lift .dot{stroke:#fff;stroke-width:3.5}
+.node text.lb{fill:var(--text);text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:4px;pointer-events:none}
+svg.far .node.small text.lb{display:none}
+.node.dim{opacity:.12}
+.maptools{position:absolute;left:calc(12px + var(--sal));bottom:12px;display:flex;flex-direction:column;gap:6px}
+.chip-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:14px;min-height:40px;white-space:nowrap}
+.chip-btn.on{background:var(--accent);color:#1b1b1b;border-color:var(--accent);font-weight:700}
+.chip-btn.red{border-color:var(--bad);color:var(--bad)}
+.chip-btn.red.on{background:var(--bad);color:#1b1b1b}
+.filters{position:absolute;right:calc(12px + var(--sar));bottom:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100% - 90px)}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center;padding:24px;line-height:1.8}
+
+#rs{background:var(--bg2);border-left:1px solid var(--line);cursor:col-resize;touch-action:none;position:relative}
+#rs::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:48px;margin:-24px 0 0 -2px;border-radius:2px;background:var(--muted);opacity:.6}
+
+/* 說明欄 */
+#panel{--u:calc(15px * var(--pz));font-size:var(--u);background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0;min-height:0}
+.grab{display:none}
+.ptools{display:flex;justify-content:flex-end;gap:6px;padding:8px 14px 0}
+.ptools button{min-width:40px;min-height:36px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:700}
+#body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:6px 20px calc(36px + var(--sab))}
+#body h2{margin:.2em 0 .3em;font-size:calc(var(--u) * 1.35);line-height:1.35}
+#body h3{font-size:calc(var(--u) * .9);color:var(--muted);margin:1.3em 0 .45em;letter-spacing:.06em}
+#body p,#body li{line-height:1.75}
+#body ul{padding-left:1.2em;margin:.3em 0}
+.back{color:var(--muted);font-size:calc(var(--u) * .87);min-height:40px}
+.tag{display:inline-block;font-size:calc(var(--u) * .8);border-radius:999px;padding:2px 10px;margin:3px 4px 0 0;border:1px solid var(--line);color:var(--muted)}
+.tag.hot{background:rgba(242,201,76,.14);border-color:var(--accent);color:var(--accent)}
+.tag.bad{background:rgba(240,117,117,.12);border-color:var(--bad);color:var(--bad)}
+.tag.ok{background:rgba(95,211,141,.12);border-color:var(--ok);color:var(--ok)}
+.trapbox{background:rgba(245,138,138,.1);border-left:3px solid var(--trap);padding:8px 12px;line-height:1.7}
+.prog{display:flex;gap:6px;margin-top:12px}
+.prog button,.seg button{flex:1;border:1px solid var(--line);border-radius:10px;min-height:44px;font-size:calc(var(--u) * .9)}
+.prog button.on,.seg button.on{border-color:var(--accent);color:var(--accent);font-weight:700}
+.seg{display:flex;gap:6px}
+.tip{font-size:calc(var(--u) * .8);color:var(--muted);margin-top:6px;line-height:1.6}
+.list button,.list .row{display:flex;width:100%;justify-content:space-between;align-items:center;gap:8px;text-align:left;padding:10px 0;border-bottom:1px solid var(--line);min-height:44px;font-size:calc(var(--u) * .93)}
+.list .n{color:var(--muted);font-size:calc(var(--u) * .8);white-space:nowrap}
+.rel button{display:block;width:100%;text-align:left;padding:9px 0;border-bottom:1px solid var(--line);line-height:1.5;min-height:44px}
+.rel span{display:block;font-size:calc(var(--u) * .85);color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:calc(var(--u) * .85);color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:6px 0 4px}
+.actions button{border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:left;min-height:64px;background:var(--bg)}
+.actions button b{display:block;font-size:calc(var(--u) * 1.25);color:var(--accent)}
+.actions button span{font-size:calc(var(--u) * .82);color:var(--muted)}
+.actions button.due b{color:var(--bad)}
+.quiz{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.quiz .stem{line-height:1.75;margin-bottom:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.quiz .src{font-size:calc(var(--u) * .75);color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;margin-bottom:4px}
+.quiz .src .w{color:var(--bad)}
+.quiz img{max-width:100%;border-radius:8px;background:#fff;margin:6px 0;display:block}
+.qfig{margin:6px 0;overflow-x:auto}.qfig a{display:block}.qfig figcaption{font-size:calc(var(--u) * .78);color:var(--muted);margin-top:-2px}
+details.ctx{border:1px dashed var(--line);border-radius:10px;padding:6px 10px;margin:4px 0 10px;background:var(--panel)}
+details.ctx summary{cursor:pointer;color:var(--accent);font-size:calc(var(--u) * .85);min-height:32px;display:flex;align-items:center}
+.ctxtext{white-space:pre-wrap;line-height:1.7;font-size:calc(var(--u) * .9);margin:4px 0}
+pre.tbl{overflow-x:auto;background:#0a0f1c;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;line-height:1.45;margin:6px 0;max-width:100%}
+a.reader{color:var(--accent);font-size:calc(var(--u) * .8);text-decoration:underline;white-space:nowrap}
+.mast{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;font-size:calc(var(--u) * .88);align-items:baseline}
+.mast .d{color:var(--muted);font-size:calc(var(--u) * .78);white-space:nowrap}.mast .nt{grid-column:2/4;color:var(--muted);font-size:calc(var(--u) * .78);margin-top:-2px}
+.node .mb{stroke:var(--bg);stroke-width:2}
+input.cfg{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:16px/1.4 inherit;font-family:inherit}
+.opt{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;line-height:1.6;min-height:44px;overflow-wrap:anywhere}
+.opt.wrong{border-color:var(--bad);background:rgba(240,117,117,.12)}
+.opt.right{border-color:var(--ok);background:rgba(95,211,141,.14)}
+.fb{margin-top:8px;line-height:1.7;font-size:calc(var(--u) * .93)}
+.fb .hint{color:var(--accent)}
+.fb .exp{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.linkbtn{color:var(--accent);text-decoration:underline;font-size:calc(var(--u) * .87);min-height:40px}
+.row-acts{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+textarea.toastin,textarea.out{width:100%;min-height:76px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:16px/1.6 inherit;font-family:inherit;resize:vertical}
+textarea.out{min-height:260px;font-size:14px}
+.savehint{font-size:calc(var(--u) * .75);color:var(--muted);height:1.4em}
+.score{font-size:calc(var(--u) * 2.4);font-weight:700;color:var(--accent)}
+.toast-msg{position:absolute;left:50%;top:calc(70px + var(--sat));transform:translateX(-50%);background:var(--accent);color:#1b1b1b;padding:8px 14px;border-radius:10px;font-weight:700;z-index:50;display:none;max-width:90%;text-align:center}
+
+/* iPad 直放、iPhone：星圖滿版＋底部抽屜 */
+@media (max-width:899px){
+  #app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  #rs{display:none}
+  header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px}
+  .brand{display:none}
+  .switch a{padding:0 12px;min-height:40px}
+  .stats{display:none}
+  .search{position:static;flex:1;display:flex;justify-content:flex-end}
+  .search input{display:none}
+  .search.open input{display:block;position:absolute;left:calc(10px + var(--sal));right:calc(10px + var(--sar));top:100%;width:auto;z-index:31;margin-top:6px}
+  .search.open .results{left:calc(10px + var(--sal));right:calc(10px + var(--sar));top:calc(100% + 50px);min-width:0}
+  .iconbtn{display:flex}
+  .filters{top:10px;bottom:auto;left:calc(10px + var(--sal));right:calc(10px + var(--sar));max-width:none;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .filters::-webkit-scrollbar{display:none}
+  .maptools{top:60px;bottom:auto;left:auto;right:calc(10px + var(--sar))}
+  .maptools .z{display:none}
+  #panel{position:absolute;left:0;right:0;bottom:0;height:var(--sh,42%);border-left:none;border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.45);z-index:20;transition:height .25s ease}
+  #panel.dragging{transition:none}
+  .grab{display:flex;align-items:center;justify-content:center;min-height:30px;touch-action:none;cursor:grab;padding-top:8px}
+  .grab i{width:40px;height:5px;border-radius:3px;background:var(--muted);opacity:.7}
+  .ptools{padding:0 12px;margin-top:-30px;min-height:30px}
+  #body{padding:4px calc(16px + var(--sar)) calc(28px + var(--sab)) calc(16px + var(--sal))}
+}
+@media (max-width:899px) and (orientation:landscape) and (max-height:500px){
+  #panel{left:auto;width:min(420px,55%);top:var(--hh,52px);height:auto !important;border-radius:0;border-left:1px solid var(--line);border-top:none}
+  .grab{display:none}
+  .ptools{margin-top:0}
+  .maptools,.filters{right:calc(min(420px,55%) + 10px)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand"><small id="brandSmall"></small><b id="brandBig">機器學習星圖</b></div>
+    <nav class="switch" id="switch" aria-label="切換科目"></nav>
+    <div class="stats" id="stats"></div>
+    <div class="search" id="searchBox">
+      <button class="iconbtn" id="searchBtn" aria-label="搜尋考點">⌕</button>
+      <input id="q" type="search" placeholder="搜尋考點…" autocomplete="off" enterkeyhint="search">
+      <div class="results" id="results"></div>
+    </div>
+    <div class="countdown"><b id="days">--</b><small id="examLabel">天後考試</small></div>
+  </header>
+
+  <div id="mapWrap">
+    <svg id="map" xmlns="http://www.w3.org/2000/svg" aria-label="考點星圖"></svg>
+    <div class="loading" id="loading">載入中…</div>
+    <div class="maptools">
+      <button class="chip-btn z" id="zin" aria-label="放大">＋</button>
+      <button class="chip-btn z" id="zout" aria-label="縮小">－</button>
+      <button class="chip-btn" id="zfit">全景</button>
+    </div>
+    <div class="filters" id="filters">
+      <button class="chip-btn on" data-f="all">全部</button>
+      <button class="chip-btn" data-f="hot" id="hotBtn">常考</button>
+      <button class="chip-btn" data-f="todo">還不會</button>
+      <button class="chip-btn red" data-f="wrong">錯題</button>
+      <button class="chip-btn" data-f="X">指引沒寫</button>
+    </div>
+  </div>
+
+  <div id="rs" role="separator" aria-label="拖曳調整說明欄寬度"></div>
+  <aside id="panel">
+    <div class="grab" id="grab" aria-label="拖曳調整說明欄高度"><i></i></div>
+    <div class="ptools"><button id="fdn" aria-label="縮小字級">A−</button><button id="fup" aria-label="放大字級">A＋</button></div>
+    <div id="body"></div>
+  </aside>
+  <div class="toast-msg" id="toastMsg"></div>
+</div>
+
+<script>
+(() => {
+"use strict";
+/* ================= 科目設定 ================= */
+const SUBJECTS = {
+  "3": {label:"科目三", name:"機器學習技術與應用", src:"data.js", base:""}
+};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const load = k => { try { return JSON.parse(localStorage.getItem(k)) || {}; } catch (e) { return {}; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const params = new URLSearchParams(location.search);
+let SID = params.get("s");
+
+if (!SUBJECTS[SID]) SID = "3";
+
+const SUB = SUBJECTS[SID];
+if (Object.keys(SUBJECTS).length > 1) $("switch").innerHTML = Object.entries(SUBJECTS).map(([k, s]) => `<a href="?s=${k}" class="${k === SID ? "on" : ""}">${s.label}</a>`).join("");
+else $("switch").style.display = "none";
+
+fetch(SUB.src, {cache:"no-cache"})
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+  .then(txt => JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1)))   // 只當資料解析，不執行
+  .then(start)
+  .catch(err => {
+    $("loading").innerHTML = `${SUB.label}資料載入失敗（${esc(err.message)}）。<br>${SUB.home ? `可以先到 <a style="color:var(--accent)" href="${SUB.home}">原作者的頁面</a> 看。` : "請重新整理再試一次。"}`;
+  });
+
+function start(D) {
+$("loading").remove();
+const M = Object.assign({pageTitle:"星圖", brandSmall:"", brandBig:"星圖", examDate:"", examLabel:"", hotMin:2, sourceNote:"", chapters:[], anchors:{}}, D.meta || {});
+const STORE = M.storePrefix || M.store || ("s" + SID);
+const K = {p: STORE + "-progress-v1", q: STORE + "-quiz-v1", qa: STORE + "-qa-v1", toast: STORE + "-toast-v1", pos: STORE + "-pos-v1", touch: STORE + "-touch-v1"};
+let progress = load(K.p), quizLog = load(K.q), qa = load(K.qa), toasts = load(K.toast), pos = load(K.pos), touch = load(K.touch);
+const ui = Object.assign({pz:1.1, pw:390, size:"hits"}, load("starmap-ui-v1"));
+const saveUI = () => save("starmap-ui-v1", ui);
+const CH = Object.fromEntries(M.chapters.map(c => [c.id, c]));
+const color = ch => (CH[ch] || {}).color || "#d7dde9";
+const isNarrow = () => matchMedia("(max-width:899px)").matches;
+const isSideSheet = () => matchMedia("(max-width:899px) and (orientation:landscape) and (max-height:500px)").matches;
+const L = "ABCD";
+
+document.title = M.pageTitle;
+$("brandSmall").textContent = M.brandSmall + (SUB.credit ? `・作者 ${SUB.credit}` : "");
+$("brandBig").textContent = M.brandBig;
+$("examLabel").textContent = "天後考試 " + M.examLabel;
+$("hotBtn").textContent = `常考（≥${M.hotMin} 次）`;
+
+/* ================= 日期與複習排程 ================= */
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const today = () => ymd(new Date());
+const addDays = n => { const d = new Date(); d.setDate(d.getDate() + n); return ymd(d); };
+const GAP = [1, 2, 4];       // 答錯→隔天；之後答對依序隔 2 天、4 天；連過三關就畢業
+const qkey = (tid, qi) => tid + "#" + qi;
+function record(tid, qi, ok, pick) {
+  const k = qkey(tid, qi), r = qa[k] || {w:0, c:0, lvl:0, due:null, hist:[]};
+  r.hist = (r.hist || []).concat([[today(), ok ? 1 : 0, L[pick]]]).slice(-12);
+  r.last = L[pick]; r.lastOk = ok;
+  if (ok) {
+    r.c++;
+    if (r.w > 0 && r.lvl < GAP.length) { r.lvl++; r.due = r.lvl >= GAP.length ? null : addDays(GAP[r.lvl]); }
+    (quizLog[tid] = quizLog[tid] || {})[qi] = "ok"; save(K.q, quizLog);
+  } else { r.w++; r.lvl = 0; r.due = addDays(GAP[0]); r.lastWrong = L[pick]; }
+  qa[k] = r; save(K.qa, qa); touchTopic(tid); paint(tid); refreshDim(); updateActions();
+}
+const unresolved = r => r && r.w > 0 && r.lvl < GAP.length;
+const isDue = r => unresolved(r) && r.due && r.due <= today();
+function touchTopic(tid) { touch[tid] = today(); save(K.touch, touch); }
+
+/* ================= 資料 ================= */
+const secById = Object.fromEntries(D.sections.map(s => [s.id, s]));
+const topics = D.topics.filter(t => secById[t.section]);
+const byId = Object.fromEntries(topics.map(t => [t.id, t]));
+const chOf = t => secById[t.section].chapter;
+const notInGuide = t => t.section === "X" || t.guideCovered === false || t.inGuide === false;
+const secs = D.sections.map(s => ({...s, items: topics.filter(t => t.section === s.id)})).filter(s => s.items.length);
+const links = (D.links || []).filter(l => byId[l.a] && byId[l.b]);
+const nbrs = Object.fromEntries(topics.map(t => [t.id, []]));
+links.forEach(l => { nbrs[l.a].push({id:l.b, why:l.why}); nbrs[l.b].push({id:l.a, why:l.why}); });
+const allQs = [];   // 每一題：{t, qi, q}
+topics.forEach(t => (t.quiz || []).forEach((q, qi) => allQs.push({t, qi, q})));
+const yearW = ref => { const m = String(ref).match(/^(\d{3})/); return !m ? 1 : +m[1] >= 115 ? 4 : +m[1] === 114 ? 3 : +m[1] === 113 ? 2 : 1; };
+const weighted = t => (t.examRefs || []).reduce((a, r) => a + yearW(r), 0);
+function tStat(t) {
+  let wrong = 0, open = 0, done = 0, att = 0;
+  (t.quiz || []).forEach((q, qi) => { const r = qa[qkey(t.id, qi)]; if (!r) return; att++; wrong += r.w; if (unresolved(r)) open++; if (r.lastOk) done++; });
+  return {wrong, open, done, att, n:(t.quiz || []).length};
+}
+const figSrc = f => /^https?:/.test(f) ? f : SUB.base + f;
+const READER_DEFAULT = "http://127.0.0.1:8769/";
+let readerBase = (() => { try { return localStorage.getItem("starmap-reader") || READER_DEFAULT; } catch (e) { return READER_DEFAULT; } })();
+const readerURL = (pdf, page) => readerBase.replace(/\/?$/, "/") + "?pdf=" + encodeURIComponent(pdf) + "&page=" + page;
+const readerLink = (pdf, page, label) => pdf && page ? `<a class="reader" href="${esc(readerURL(pdf, page))}" target="_blank" rel="noopener">${esc(label || "陪讀閱讀器開原卷")} p.${page}</a>` : "";
+const MST = {"🔴":"var(--bad)", "🟢":"var(--ok)", "🟦":"#6DACDE", "🟡":"var(--accent)", "⚪":"var(--muted)"};
+function coachState(t) {
+  const m = t.mastery || []; if (!m.length) return null;
+  if (m.some(x => x.status === "🔴")) return "🔴";
+  if (m.every(x => x.status === "🟢" || x.status === "🟦")) return "🟢";
+  if (m.some(x => x.status === "🟢" || x.status === "🟦")) return "🟡";
+  return "⚪";
+}
+const figHTML = arr => (arr || []).map(f => `<figure class="qfig"><a href="${esc(figSrc(f.src))}" target="_blank" rel="noopener"><img src="${esc(figSrc(f.src))}" alt="${esc(f.cap || "題目附圖")}" loading="lazy" onload="this.style.minWidth=Math.min(this.naturalWidth,560)+'px'"></a>${f.cap ? `<figcaption>${esc(f.cap)}</figcaption>` : ""}</figure>`).join("");
+const ctxHTML = c => c ? `<details class="ctx" open><summary>${esc(c.label || "題組共用資料")}</summary><div class="ctxtext">${esc(c.text || "")}</div>${figHTML(c.figures)}${c.pre ? `<pre class="tbl">${esc(c.pre)}</pre>` : ""}</details>` : "";
+
+/* ================= 配置 ================= */
+const R = t => ui.size === "prio"
+  ? Math.min(34, 7 + 6 * Math.sqrt(weighted(t) / 2.5 + 1.5 * tStat(t).wrong))
+  : Math.min(30, 7 + 6 * Math.sqrt(t.examHits || 0));
+const LY = Object.assign({spread:.8}, M.layout || {});
+function layout() {
+  const CX = 800, CY = 560;
+  secs.forEach(s => {
+    const a = M.anchors[s.id] || [CX, CY];
+    s.ax = CX + (a[0] - CX) * LY.spread; s.ay = CY + (a[1] - CY) * LY.spread;
+    s.items.slice().sort((p, q) => (q.examHits || 0) - (p.examHits || 0)).forEach((t, i) => {
+      const ang = i * 2.39996, d = (LY.ring || 40) * Math.sqrt(i);
+      t.x = s.ax + Math.cos(ang) * d; t.y = s.ay + Math.sin(ang) * d; t.r = R(t); t.s = s;
+    });
+  });
+  for (let it = 0, N = 450; it < N; it++) {
+    const k = 1 - it / N;
+    links.forEach(l => {
+      const p = byId[l.a], q = byId[l.b], same = p.s === q.s;
+      const Lg = same ? p.r + q.r + 60 : 180;
+      const dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy) || .01;
+      const f = (d - Lg) / d * (same ? .03 : .006) * k;
+      p.x += dx * f; p.y += dy * f; q.x -= dx * f; q.y -= dy * f;
+    });
+    topics.forEach(t => { t.x += (t.s.ax - t.x) * .018; t.y += (t.s.ay - t.y) * .018; });
+    for (let i = 0; i < topics.length; i++) for (let j = i + 1; j < topics.length; j++) {
+      const p = topics[i], q = topics[j];
+      const dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy) || .01;
+      const min = p.r + q.r + (p.s === q.s ? (LY.gap || 30) : 60);
+      if (d < min) { const m = (min - d) / 2 / d; p.x -= dx * m; p.y -= dy * m; q.x += dx * m; q.y += dy * m; }
+    }
+  }
+  for (let it = 0; it < 300; it++) {   // 各島整塊推開，不互相重疊
+    secs.forEach(bounds);
+    let movedAny = false;
+    for (let i = 0; i < secs.length; i++) for (let j = i + 1; j < secs.length; j++) {
+      const a = secs[i], b = secs[j];
+      const ox = (a.rx + b.rx + 30) - Math.abs(a.cx - b.cx), oy = (a.ry + b.ry + 76) - Math.abs(a.cy - b.cy);
+      if (ox <= 0 || oy <= 0) continue;
+      movedAny = true;
+      let dx = 0, dy = 0;
+      if (ox / (a.rx + b.rx) < oy / (a.ry + b.ry)) dx = (a.cx < b.cx ? -1 : 1) * Math.min(ox, 24) / 2;
+      else dy = (a.cy < b.cy ? -1 : 1) * Math.min(oy, 24) / 2;
+      a.items.forEach(t => { t.x += dx; t.y += dy; }); b.items.forEach(t => { t.x -= dx; t.y -= dy; });
+    }
+    if (!movedAny) break;
+  }
+  topics.forEach(t => { if (pos[t.id]) { t.x = pos[t.id][0]; t.y = pos[t.id][1]; } });   // 自己拖過的位置優先
+  secs.forEach(bounds);
+}
+function bounds(s) {
+  const xs = s.items.map(t => [t.x - t.r - 20, t.x + t.r + 20]).flat();
+  const ys = s.items.map(t => [t.y - t.r, t.y + t.r + 18]).flat();
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  s.cx = (x0 + x1) / 2; s.cy = (y0 + y1) / 2; s.rx = (x1 - x0) / 2 * 1.12 + 22; s.ry = (y1 - y0) / 2 * 1.12 + 22;
+}
+
+/* ================= 繪圖 ================= */
+const NS = "http://www.w3.org/2000/svg", svg = $("map");
+const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+let nodeEls = {}, edgeEls = {}, edgeList = [], hitEls = [], textEls = [], labEls = [], ringEls = {}, home = null;
+function draw() {
+  svg.innerHTML = "";
+  layout();
+  const gStar = mk("g", {opacity:.5}, svg), gRing = mk("g", {}, svg), gEdge = mk("g", {}, svg), gNode = mk("g", {}, svg), gLab = mk("g", {}, svg);
+  let bx0 = Infinity, by0 = Infinity, bx1 = -Infinity, by1 = -Infinity;
+  secs.forEach(s => { bx0 = Math.min(bx0, s.cx - s.rx); bx1 = Math.max(bx1, s.cx + s.rx); by0 = Math.min(by0, s.cy - s.ry - 34); by1 = Math.max(by1, s.cy + s.ry); });
+  let seed = 11; const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+  for (let i = 0; i < 280; i++) mk("circle", {cx:bx0 - 300 + rnd() * (bx1 - bx0 + 600), cy:by0 - 300 + rnd() * (by1 - by0 + 600), r:rnd() * 1.3 + .2, fill:"#c8d2f0"}, gStar);
+  ringEls = {}; secs.forEach(s => ringEls[s.id] = mk("ellipse", {cx:s.cx, cy:s.cy, rx:s.rx, ry:s.ry, class:"ring", fill:color(s.chapter), stroke:color(s.chapter)}, gRing));
+  edgeEls = Object.fromEntries(topics.map(t => [t.id, []])); edgeList = [];
+  links.forEach(l => { const p = byId[l.a], q = byId[l.b]; const e = mk("line", {x1:p.x, y1:p.y, x2:q.x, y2:q.y, class:"edge"}, gEdge); e._a = p; e._b = q; edgeEls[l.a].push(e); edgeEls[l.b].push(e); edgeList.push(e); });
+  nodeEls = {}; hitEls = []; textEls = [];
+  topics.forEach(t => {
+    const c = color(chOf(t));
+    const g = mk("g", {class:"node" + ((t.examHits || 0) < M.hotMin ? " small" : ""), transform:`translate(${t.x},${t.y})`, role:"button", "aria-label":t.title}, gNode);
+    g._id = t.id;
+    const hit = mk("circle", {class:"hit", r:t.r}, g); hit._r = t.r; hitEls.push(hit);
+    mk("circle", {class:"wr", r:t.r + 4}, g);
+    mk("circle", {class:"halo", r:t.r + 8}, g);
+    mk("circle", {class:"dot", r:t.r, stroke:c, fill:c}, g);
+    const br = mk("text", {class:"bread", x:t.r * .75, y:-t.r * .6, "font-size":12}, g); br.textContent = "🍞";
+    const cs = coachState(t); if (cs) mk("circle", {class:"mb", cx:-t.r * .78, cy:-t.r * .78, r:Math.max(4, t.r * .28), fill:MST[cs]}, g);
+    const tx = mk("text", {class:"lb", y:t.r + 14}, g); tx._r = t.r; tx._full = t.title;
+    const cut = t.title.split(/[（(]/)[0].trim(); tx._short = cut.length > 9 ? cut.slice(0, 8) + "…" : cut;
+    tx.textContent = t.title; textEls.push(tx);
+    g.addEventListener("click", ev => { if (moved) return; ev.stopPropagation(); openTopic(t.id, false); });
+    g.addEventListener("pointerenter", ev => { if (ev.pointerType === "mouse" && !dragging) focus(t.id); });
+    g.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse" && !dragging) focus(selected); });
+    nodeEls[t.id] = g;
+  });
+  labEls = [];
+  secs.forEach(s => {
+    const lb = mk("text", {x:s.cx, y:s.cy - s.ry - 10, "text-anchor":"middle", class:"seclabel", fill:color(s.chapter)}, gLab);
+    const nm = s.short || (s.name.length > 6 ? s.name.slice(0, 5) + "…" : s.name);
+    lb._full = (s.id === "X" ? "" : s.id + " ") + s.name; lb._short = (s.id === "X" ? "" : s.id + " ") + nm;
+    lb.textContent = lb._full; lb._s = s; labEls.push(lb);
+    lb.addEventListener("click", ev => { if (moved) return; ev.stopPropagation(); zoomSection(s); showSection(s.id); });
+  });
+  const PAD = 50;
+  home = {x:bx0 - PAD, y:by0 - PAD, w:bx1 - bx0 + PAD * 2, h:by1 - by0 + PAD * 2};
+  topics.forEach(t => paint(t.id));
+  if (selected) nodeEls[selected] && nodeEls[selected].classList.add("sel");
+  focused = null; refreshDim(); apply();
+}
+function moveNode(t) {
+  nodeEls[t.id].setAttribute("transform", `translate(${t.x},${t.y})`);
+  edgeEls[t.id].forEach(e => { e.setAttribute("x1", e._a.x); e.setAttribute("y1", e._a.y); e.setAttribute("x2", e._b.x); e.setAttribute("y2", e._b.y); });
+}
+function refreshRing(s) {
+  bounds(s); const e = ringEls[s.id];
+  e.setAttribute("cx", s.cx); e.setAttribute("cy", s.cy); e.setAttribute("rx", s.rx); e.setAttribute("ry", s.ry);
+  const lb = labEls.find(l => l._s === s); lb.setAttribute("x", s.cx); lb.setAttribute("y", s.cy - s.ry - 10);
+}
+
+let focused = null;
+function focus(id) {
+  if (focused && nbrs[focused]) { edgeEls[focused].forEach(e => e.classList.remove("hl")); [focused, ...nbrs[focused].map(n => n.id)].forEach(i => nodeEls[i] && nodeEls[i].classList.remove("nb")); }
+  focused = id && nbrs[id] ? id : null;
+  svg.classList.toggle("focus", !!focused);
+  if (focused) { edgeEls[focused].forEach(e => e.classList.add("hl")); [focused, ...nbrs[focused].map(n => n.id)].forEach(i => nodeEls[i].classList.add("nb")); }
+}
+function paint(id) {
+  const g = nodeEls[id]; if (!g) return;
+  g.querySelector(".dot").setAttribute("fill-opacity", [0.05, 0.4, 0.95][progress[id] || 0]);
+  g.classList.toggle("err", tStat(byId[id]).open > 0);
+  g.classList.toggle("toast", !!(toasts[id] && toasts[id].trim()));
+}
+
+/* ================= 平移、縮放、拖曳 ================= */
+let view = {x:0, y:0, w:1600, h:1100};
+const W = () => Math.max(1, svg.clientWidth), H = () => Math.max(1, svg.clientHeight);
+function covered() {
+  if (!isNarrow() || isSideSheet()) return 0;
+  const pr = $("panel").getBoundingClientRect(), mr = svg.getBoundingClientRect();
+  return Math.max(0, mr.bottom - pr.top);
+}
+const coveredRight = () => isSideSheet() ? $("panel").getBoundingClientRect().width : 0;
+function apply() {
+  svg.setAttribute("viewBox", `${view.x} ${view.y} ${view.w} ${view.h}`);
+  const k = view.w / W(), far = k > 1.3;
+  svg.classList.toggle("far", far);
+  hitEls.forEach(h => h.setAttribute("r", Math.max(h._r + 4, 22 * k)));   // 手指點擊範圍至少 44px
+  const fs = Math.min(15, Math.max(11.5, 12 * k));
+  textEls.forEach(t => { t.setAttribute("font-size", fs); t.setAttribute("y", t._r + fs + 2); const s = far ? t._short : t._full; if (t.textContent !== s) t.textContent = s; });
+  const ls = Math.min(Math.max(16, 15 * k), 38);
+  labEls.forEach(l => { l.setAttribute("font-size", ls); const s = far ? l._short : l._full; if (l.textContent !== s) l.textContent = s; });
+}
+function fitRect(x0, y0, w0, h0) {
+  const aw = Math.max(80, W() - coveredRight()), ah = Math.max(80, H() - covered());
+  const k = Math.max(w0 / aw, h0 / ah);
+  view.w = W() * k; view.h = H() * k; view.x = x0 + w0 / 2 - aw * k / 2; view.y = y0 + h0 / 2 - ah * k / 2;
+  apply();
+}
+const resetView = () => fitRect(home.x, home.y, home.w, home.h);
+function zoomAt(f, cx, cy) {
+  const nw = Math.min(home.w * 3, Math.max(160, view.w * f)), k = nw / view.w;
+  view.x = cx - (cx - view.x) * k; view.y = cy - (cy - view.y) * k; view.w = nw; view.h *= k; apply();
+}
+const zoomSection = s => fitRect(s.cx - s.rx, s.cy - s.ry - 40, s.rx * 2, s.ry * 2 + 40);
+function flyTo(t) { const span = Math.max(Math.min(view.w, 760), 380); fitRect(t.x - span / 2, t.y - span * .275, span, span * .55); }
+const toWorld = (px, py) => { const b = svg.getBoundingClientRect(); return [view.x + (px - b.left) / b.width * view.w, view.y + (py - b.top) / b.height * view.h]; };
+svg.addEventListener("wheel", e => { e.preventDefault(); const [x, y] = toWorld(e.clientX, e.clientY); zoomAt(e.deltaY > 0 ? 1.12 : 1 / 1.12, x, y); }, {passive:false});
+
+const ptrs = new Map(); let moved = false, last = null, pinch = null, cand = null, dragging = null, armTimer = null;
+svg.addEventListener("pointerdown", e => {
+  ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = false; last = [e.clientX, e.clientY]; pinch = null; dragging = null; clearTimeout(armTimer);
+  const g = e.target.closest(".node"), lb = e.target.closest(".seclabel");
+  cand = ptrs.size > 1 ? null : g ? {type:"node", t:byId[g._id]} : lb ? {type:"sec", s:lb._s} : null;
+  if (cand && e.pointerType !== "mouse") {   // 手機、平板：長按 0.4 秒才拖得動，避免和滑動地圖搶
+    armTimer = setTimeout(() => {
+      if (moved || !cand) return;
+      dragging = cand; navigator.vibrate && navigator.vibrate(12);
+      if (cand.type === "node") nodeEls[cand.t.id].classList.add("lift");
+      toast(cand.type === "node" ? "拖曳這顆星星" : "拖曳整座島");
+    }, 400);
+  }
+});
+svg.addEventListener("pointermove", e => {
+  if (!ptrs.has(e.pointerId)) return;
+  ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+  if (ptrs.size === 2) {
+    clearTimeout(armTimer); cand = null; dragging = null;
+    const [a, b] = [...ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+    if (pinch) { const [x, y] = toWorld((a[0] + b[0]) / 2, (a[1] + b[1]) / 2); zoomAt(pinch / d, x, y); }
+    pinch = d; moved = true; return;
+  }
+  const dx = e.clientX - last[0], dy = e.clientY - last[1];
+  if (!moved && Math.hypot(dx, dy) < 6) return;
+  if (!moved) {
+    moved = true; clearTimeout(armTimer);
+    if (cand && e.pointerType === "mouse") dragging = cand;
+    try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+    svg.classList.add("dragging");
+  }
+  const wx = dx / W() * view.w, wy = dy / H() * view.h;
+  if (dragging && dragging.type === "node") { const t = dragging.t; t.x += wx; t.y += wy; moveNode(t); }
+  else if (dragging && dragging.type === "sec") { dragging.s.items.forEach(t => { t.x += wx; t.y += wy; moveNode(t); }); refreshRing(dragging.s); }
+  else { view.x -= wx; view.y -= wy; apply(); }
+  last = [e.clientX, e.clientY];
+});
+const up = e => {
+  ptrs.delete(e.pointerId); clearTimeout(armTimer); svg.classList.remove("dragging");
+  if (dragging) {
+    const items = dragging.type === "node" ? [dragging.t] : dragging.s.items;
+    items.forEach(t => pos[t.id] = [Math.round(t.x), Math.round(t.y)]); save(K.pos, pos);
+    if (dragging.type === "node") { nodeEls[dragging.t.id].classList.remove("lift"); refreshRing(dragging.t.s); }
+    if (!moved) moved = true;   // 長按後放開，不要當成點擊
+    dragging = null;
+  }
+  cand = null;
+  if (ptrs.size < 2) pinch = null; if (ptrs.size === 1) last = [...ptrs.values()][0];
+};
+["pointerup", "pointercancel"].forEach(n => svg.addEventListener(n, up));
+svg.addEventListener("contextmenu", e => e.preventDefault());
+svg.addEventListener("click", () => { if (!moved && isNarrow()) setSheet("peek"); });
+$("zin").onclick = () => zoomAt(1 / 1.3, view.x + view.w / 2, view.y + view.h / 2);
+$("zout").onclick = () => zoomAt(1.3, view.x + view.w / 2, view.y + view.h / 2);
+$("zfit").onclick = () => resetView();
+let lastW = W();
+new ResizeObserver(() => {
+  const k = view.w / lastW, cx = view.x + view.w / 2, cy = view.y + view.h / 2;
+  view.w = W() * k; view.h = H() * k; view.x = cx - view.w / 2; view.y = cy - view.h / 2; lastW = W(); apply();
+}).observe(svg);
+
+/* ================= 篩選與搜尋 ================= */
+let filter = "all", query = "";
+function matches(t) {
+  if (filter === "hot" && (t.examHits || 0) < M.hotMin) return false;
+  if (filter === "todo" && (progress[t.id] || 0) === 2) return false;
+  if (filter === "wrong" && tStat(t).open === 0) return false;
+  if (filter === "X" && !notInGuide(t)) return false;
+  if (!query) return true;
+  return [t.title, t.summary, (t.keyPoints || []).join(" "), t.trap, toasts[t.id]].join(" ").toLowerCase().includes(query);
+}
+const refreshDim = () => topics.forEach(t => nodeEls[t.id] && nodeEls[t.id].classList.toggle("dim", !matches(t)));
+$("filters").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  filter = b.dataset.f; [...$("filters").children].forEach(x => x.classList.toggle("on", x === b)); refreshDim();
+  if (filter === "wrong") showWrongBook();
+});
+const results = $("results"), q = $("q");
+q.addEventListener("input", () => {
+  query = q.value.trim().toLowerCase(); refreshDim();
+  if (!query) { results.style.display = "none"; return; }
+  const hit = topics.filter(matches).slice(0, 15);
+  results.innerHTML = hit.length ? hit.map(t => `<button data-id="${esc(t.id)}">${esc(t.title)}<span>${esc(t.section === "X" ? "指引沒寫" : t.section)}</span></button>`).join("") : `<button disabled style="color:var(--muted)">找不到</button>`;
+  results.style.display = "block";
+});
+results.addEventListener("click", e => {
+  const b = e.target.closest("[data-id]"); if (!b) return;
+  results.style.display = "none"; $("searchBox").classList.remove("open"); q.blur(); openTopic(b.dataset.id, true);
+});
+$("searchBtn").onclick = () => { const box = $("searchBox"); box.classList.toggle("open"); if (box.classList.contains("open")) q.focus(); else results.style.display = "none"; };
+document.addEventListener("click", e => { if (!e.target.closest(".search")) results.style.display = "none"; });
+
+/* ================= 進度 ================= */
+function statsHTML() {
+  const groups = [["全部", topics, "var(--accent)"]].concat(M.chapters.filter(c => c.id !== "X").map(c => [c.short || c.name, topics.filter(t => chOf(t) === c.id), c.color]));
+  return groups.filter(g => g[1].length).map(([name, list, col]) => {
+    const pct = Math.round(list.filter(t => progress[t.id] === 2).length / list.length * 100);
+    return `<div class="stat"><div class="lbl">${esc(name)}（${list.length}）</div><div class="pct">${pct}%</div><div class="bar"><i style="width:${pct}%;background:${col}"></i></div></div>`;
+  }).join("");
+}
+const renderStats = () => { $("stats").innerHTML = statsHTML(); };
+function setProgress(id, st) { progress[id] = st; save(K.p, progress); touchTopic(id); paint(id); renderStats(); refreshDim(); }
+
+/* ================= 說明欄：字級、寬度、抽屜 ================= */
+const root = document.documentElement, panel = $("panel"), body = $("body");
+function applyUI() {
+  ui.pz = Math.min(1.8, Math.max(.85, Math.round(ui.pz * 20) / 20));
+  root.style.setProperty("--pz", ui.pz);
+  root.style.setProperty("--pw", Math.min(Math.max(ui.pw, 300), Math.max(300, innerWidth - 360)) + "px");
+}
+$("fup").onclick = () => { ui.pz += .1; saveUI(); applyUI(); };
+$("fdn").onclick = () => { ui.pz -= .1; saveUI(); applyUI(); };
+applyUI(); addEventListener("resize", applyUI);
+(() => {
+  const rs = $("rs"); let drag = false;
+  rs.addEventListener("pointerdown", e => { drag = true; rs.setPointerCapture(e.pointerId); e.preventDefault(); });
+  rs.addEventListener("pointermove", e => { if (drag) { ui.pw = innerWidth - e.clientX; applyUI(); } });
+  const end = () => { if (drag) { drag = false; saveUI(); } };
+  rs.addEventListener("pointerup", end); rs.addEventListener("pointercancel", end);
+  rs.addEventListener("dblclick", () => { ui.pw = 390; saveUI(); applyUI(); });
+})();
+let sheet = "half";
+function sheetPx(state) {
+  const app = $("app").getBoundingClientRect(), head = document.querySelector("header").getBoundingClientRect().height;
+  const avail = app.height - head;
+  return state === "peek" ? 112 : state === "full" ? avail - 8 : Math.round(avail * .5);
+}
+function setSheet(state) {
+  sheet = state;
+  root.style.setProperty("--hh", document.querySelector("header").getBoundingClientRect().height + "px");
+  if (isNarrow()) panel.style.setProperty("--sh", sheetPx(state) + "px");
+}
+(() => {
+  const g = $("grab"); let y0 = null, h0 = 0, t0 = 0;
+  g.addEventListener("pointerdown", e => { y0 = e.clientY; h0 = panel.getBoundingClientRect().height; t0 = Date.now(); g.setPointerCapture(e.pointerId); panel.classList.add("dragging"); });
+  g.addEventListener("pointermove", e => { if (y0 !== null) panel.style.setProperty("--sh", Math.max(90, Math.min(sheetPx("full"), h0 + (y0 - e.clientY))) + "px"); });
+  const end = e => {
+    if (y0 === null) return;
+    panel.classList.remove("dragging");
+    const dy = y0 - e.clientY, fast = Date.now() - t0 < 250 && Math.abs(dy) > 30, h = panel.getBoundingClientRect().height; y0 = null;
+    if (Math.abs(dy) < 6) { setSheet(sheet === "peek" ? "half" : sheet === "half" ? "full" : "half"); return; }
+    if (fast) { setSheet(dy > 0 ? (sheet === "peek" ? "half" : "full") : (sheet === "full" ? "half" : "peek")); return; }
+    setSheet(["peek", "half", "full"].map(s => [s, Math.abs(sheetPx(s) - h)]).sort((a, b) => a[1] - b[1])[0][0]);
+  };
+  g.addEventListener("pointerup", end); g.addEventListener("pointercancel", end);
+})();
+addEventListener("resize", () => setSheet(sheet));
+const reveal = (to = "half") => { if (isNarrow() && (sheet === "peek" || to === "full")) setSheet(to); };
+
+let selected = null;
+function select(id) {
+  if (selected && nodeEls[selected]) nodeEls[selected].classList.remove("sel");
+  selected = id; if (id && nodeEls[id]) nodeEls[id].classList.add("sel"); focus(id);
+}
+const prog3 = id => ["○", "◐", "●"][progress[id] || 0];
+function toast(msg) { const t = $("toastMsg"); t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 1800); }
+async function copyText(text, label) {
+  try { await navigator.clipboard.writeText(text); toast(`已複製${label || ""}`); }
+  catch (e) {   // 複製被擋時，改成顯示文字框讓使用者自己全選
+    const prev = body.innerHTML;
+    body.innerHTML = `<button class="back">← 返回</button><h2>請手動複製</h2><p class="tip">長按文字框 → 全選 → 拷貝。</p><textarea class="out" readonly>${esc(text)}</textarea>`;
+    body.querySelector(".back").onclick = () => { body.innerHTML = prev; showHome(); };
+    const ta = body.querySelector("textarea"); ta.focus(); ta.select();
+  }
+}
+
+/* ================= 首頁 ================= */
+const dueList = () => allQs.filter(x => isDue(qa[qkey(x.t.id, x.qi)]));
+const wrongList = () => allQs.filter(x => (qa[qkey(x.t.id, x.qi)] || {}).w > 0)
+  .sort((a, b) => (unresolved(qa[qkey(b.t.id, b.qi)]) - unresolved(qa[qkey(a.t.id, a.qi)])) || (qa[qkey(b.t.id, b.qi)].w - qa[qkey(a.t.id, a.qi)].w));
+const touchedToday = () => topics.filter(t => touch[t.id] === today());
+function updateActions() {
+  const box = body.querySelector(".actions"); if (!box) return;
+  box.outerHTML = actionsHTML(); bindActions();
+}
+function actionsHTML() {
+  const due = dueList().length, wr = wrongList(), open = wr.filter(x => unresolved(qa[qkey(x.t.id, x.qi)])).length, tt = touchedToday().length;
+  return `<div class="actions">
+    <button data-a="review" class="${due ? "due" : ""}"><b>${due}</b><span>今日要複習的錯題</span></button>
+    <button data-a="wrong"><b>${open}<small style="font-size:.6em;color:var(--muted)"> / ${wr.length}</small></b><span>錯題本（未過／全部）</span></button>
+    <button data-a="mock"><b>模擬考</b><span>10／20／50 題</span></button>
+    <button data-a="sum"><b>${tt}</b><span>今天讀過的考點 → 外出學習摘要</span></button></div>`;
+}
+function bindActions() {
+  body.querySelectorAll("[data-a]").forEach(b => b.onclick = () => ({review:showReview, wrong:showWrongBook, mock:showMockSetup, sum:showTodaySummary})[b.dataset.a]());
+}
+function showHome() {
+  select(null);
+  const prio = topics.slice().sort((a, b) => (tStat(b).open - tStat(a).open) || (tStat(b).wrong - tStat(a).wrong) || (weighted(b) - weighted(a))).slice(0, 12);
+  body.innerHTML = `
+    <h2>${esc(SUB.label)}・${esc(SUB.name)}</h2>
+    ${SUB.credit ? `<p class="tip" style="margin-top:0">考點與解析：<a style="color:var(--accent)" href="${SUB.home}">${esc(SUB.credit)}</a>（即時讀取原作者網站）。錯題、複習、吐司記在你自己的裝置。</p>` : ""}
+    ${actionsHTML()}
+    <p class="tip">點星星看說明和考題。答錯第一次就記進錯題本，隔天、再隔 2 天、再隔 4 天各考一次，連續答對就畢業。紅圈＝還有沒過的錯題。</p>
+    <h3>進度</h3><div class="stats" style="display:flex;flex-wrap:wrap;overflow:visible">${statsHTML()}</div>
+    <h3>先讀這些（錯題優先，再依考古題加權）</h3>
+    <div class="list">${prio.map(t => { const s = tStat(t); return `<button data-id="${esc(t.id)}"><span>${prog3(t.id)} ${esc(t.title)}</span><span class="n">${s.open ? `<span style="color:var(--bad)">未過 ${s.open}</span>・` : ""}加權 ${weighted(t)}</span></button>`; }).join("")}</div>
+    <p class="tip">加權：115-1 每題 ×4、114-2 每題 ×3、官方樣題每題 ×1。</p>
+    <h3>星星大小</h3>
+    <div class="seg"><button data-size="hits" class="${ui.size === "hits" ? "on" : ""}">正式卷考幾題</button><button data-size="prio" class="${ui.size === "prio" ? "on" : ""}">優先度（錯題＋加權）</button></div>
+    <h3>圖例</h3>
+    <div class="legend">${M.chapters.map(c => `<span><i class="sw" style="background:${c.color}"></i>${esc(c.short || c.name)}</span>`).join("")}
+      <span><i class="sw" style="border:2px solid var(--muted)"></i>空心＝未讀</span>
+      <span><i class="sw" style="background:var(--muted);opacity:.45"></i>半亮＝讀過</span>
+      <span><i class="sw" style="background:var(--muted)"></i>實心＝會了</span>
+      <span><i class="sw" style="border:3px solid var(--bad)"></i>紅圈＝錯題未過</span>
+      <span>🍞＝寫了記憶吐司</span></div>
+    <h3>章節</h3>
+    <div class="list">${secs.map(s => {
+      const done = s.items.filter(t => progress[t.id] === 2).length, hits = s.items.reduce((a, t) => a + (t.examHits || 0), 0);
+      return `<button data-s="${esc(s.id)}"><span><b style="color:${color(s.chapter)}">${s.id === "X" ? "★" : esc(s.id)}</b>　${esc(s.name)}</span><span class="n">${done}/${s.items.length} 會了・考 ${hits} 題</span></button>`;
+    }).join("")}</div>
+    <h3>教練紀錄</h3>
+    <p class="tip" style="margin-top:0">星星左上角的小點＝教練追蹤表的狀態：<span style="color:var(--ok)">●</span> 都過了　<span style="color:var(--accent)">●</span> 部分過　<span style="color:var(--bad)">●</span> 有紅燈　<span style="color:var(--muted)">●</span> 還沒考。沒有小點＝追蹤表沒有對應概念。${esc(M.masteryNote || "")}</p>
+    ${(() => { const red = topics.filter(t => coachState(t) === "🔴"); return red.length ? `<div class="list">${red.map(t => `<button data-id="${esc(t.id)}"><span>🔴 ${esc(t.title)}</span><span class="n">${esc(t.mastery.filter(m => m.status === "🔴").map(m => m.concept).join("、"))}</span></button>`).join("")}</div>` : ""; })()}
+    <h3>陪讀閱讀器網址</h3>
+    <p class="tip" style="margin-top:0">每題的「原卷 p.N」會用這個網址開陪讀閱讀器並翻到該頁。在 Mac 上用預設值；在 iPad 用 Tailscale 的 https 網址。記在這台裝置。</p>
+    <div class="row-acts"><input class="cfg" id="readerIn" value="${esc(readerBase)}" inputmode="url" autocomplete="off"><button class="chip-btn" id="readerSave">儲存</button><button class="chip-btn" id="readerReset">預設</button></div>
+    <h3>換裝置（Mac／iPad／iPhone）</h3>
+    <p class="tip" style="margin-top:0">紀錄只存在這台裝置。換裝置時在舊裝置按「複製進度碼」，傳到新裝置按「貼上進度碼」（會合併，不會覆蓋）。</p>
+    <div class="row-acts"><button class="chip-btn" id="exp">複製進度碼</button><button class="chip-btn" id="imp">貼上進度碼</button>${Object.keys(pos).length ? `<button class="chip-btn" id="relayout">星星位置重排</button>` : ""}</div>
+    <p class="tip">桌機直接拖曳星星或島名；手機、平板長按 0.4 秒再拖。位置記在這台裝置。</p>
+    <p class="tip">${esc(M.sourceNote)}</p>`;
+  bindActions();
+  body.querySelectorAll(".list [data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
+  body.querySelectorAll("[data-s]").forEach(b => b.onclick = () => { const s = secs.find(x => x.id === b.dataset.s); showSection(s.id); zoomSection(s); });
+  body.querySelectorAll("[data-size]").forEach(b => b.onclick = () => { ui.size = b.dataset.size; saveUI(); draw(); resetView(); showHome(); });
+  $("readerSave").onclick = () => { const v = $("readerIn").value.trim(); if (!/^https?:\/\//.test(v)) { toast("網址要以 http:// 或 https:// 開頭"); return; } readerBase = v; try { localStorage.setItem("starmap-reader", v); } catch (e) {} toast("已儲存"); };
+  $("readerReset").onclick = () => { readerBase = READER_DEFAULT; $("readerIn").value = readerBase; try { localStorage.removeItem("starmap-reader"); } catch (e) {} toast("已改回預設"); };
+  $("exp").onclick = () => copyText(btoa(unescape(encodeURIComponent(JSON.stringify({v:2, s:SID, p:progress, q:quizLog, qa, toast:toasts})))), "進度碼");
+  $("imp").onclick = importCode;
+  if ($("relayout")) $("relayout").onclick = () => { pos = {}; save(K.pos, pos); draw(); resetView(); showHome(); toast("已重排"); };
+  body.scrollTop = 0;
+}
+function importCode() {
+  const code = prompt("貼上進度碼："); if (!code) return;
+  try {
+    const o = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (o.s && o.s !== SID) { alert(`這是${SUBJECTS[o.s] ? SUBJECTS[o.s].label : "別科"}的進度碼，請切到那一科再貼。`); return; }
+    for (const k in (o.p || {})) progress[k] = Math.max(progress[k] || 0, o.p[k] || 0);
+    for (const k in (o.q || {})) quizLog[k] = Object.assign({}, quizLog[k] || {}, o.q[k]);
+    for (const k in (o.qa || {})) {   // 同一題取紀錄比較多的那份
+      const a = qa[k], b = o.qa[k];
+      qa[k] = !a ? b : ((b.hist || []).length > (a.hist || []).length ? b : a);
+    }
+    for (const k in (o.toast || {})) if (!toasts[k]) toasts[k] = o.toast[k];
+    save(K.p, progress); save(K.q, quizLog); save(K.qa, qa); save(K.toast, toasts);
+    topics.forEach(t => paint(t.id)); renderStats(); refreshDim(); showHome(); toast("進度已合併");
+  } catch (e) { alert("進度碼格式不對，請重新複製。"); }
+}
+
+function showSection(sid) {
+  select(null);
+  const s = secs.find(x => x.id === sid); if (!s) return;
+  const items = s.items.slice().sort((a, b) => (b.examHits || 0) - (a.examHits || 0));
+  const ch = CH[s.chapter] || {};
+  body.innerHTML = `<button class="back">← 回總覽</button>
+    <div class="tip" style="margin:0">${esc(ch.name || "")}${ch.code ? "・" + esc(ch.code) : ""}</div>
+    <h2 style="color:${color(s.chapter)}">${s.id === "X" ? "" : esc(s.id) + " "}${esc(s.name)}</h2>
+    ${s.weight ? `<span class="tag">評鑑占比 ${esc(s.weight)}</span>` : ""}
+    <div class="list">${items.map(t => { const st = tStat(t); return `<button data-id="${esc(t.id)}"><span>${prog3(t.id)} ${esc(t.title)}${toasts[t.id] ? " 🍞" : ""}</span><span class="n">${st.open ? `<span style="color:var(--bad)">未過 ${st.open}</span>・` : ""}${t.examHits ? "考 " + t.examHits + " 次" : ""}</span></button>`; }).join("")}</div>`;
+  body.querySelector(".back").onclick = showHome;
+  body.querySelectorAll("[data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
+  body.scrollTop = 0; reveal();
+}
+
+/* ================= 考點頁 ================= */
+function openTopic(id, fly, scrollQi) {
+  const t = byId[id]; if (!t) return;
+  select(id); reveal();
+  if (fly || isNarrow()) flyTo(t);
+  const s = secById[t.section], c = color(s.chapter), st = progress[id] || 0, ts = tStat(t);
+  body.innerHTML = `<button class="back">← ${s.id === "X" ? "" : esc(s.id) + " "}${esc(s.name)}</button>
+    <h2 style="color:${c}">${esc(t.title)}</h2>
+    <div>${t.examHits ? `<span class="tag hot">正式卷考過 ${t.examHits} 題</span>` : `<span class="tag">正式卷沒考過</span>`}
+      ${ts.open ? `<span class="tag bad">錯題未過 ${ts.open}</span>` : ts.wrong ? `<span class="tag ok">錯題都過了</span>` : ""}
+      ${(t.examRefs || []).map(r => `<span class="tag">${esc(r)}</span>`).join("")}
+      ${t.guidePages ? `<span class="tag">指引 p.${esc(t.guidePages)}</span>` : notInGuide(t) ? `<span class="tag">指引沒寫・考古題才有</span>` : ""}</div>
+    ${t.guidePdfPage && M.readerPdfs && M.readerPdfs.g ? `<div style="margin-top:6px">${readerLink(M.readerPdfs.g, t.guidePdfPage, "陪讀閱讀器開學習指引")}</div>` : ""}
+    <h3>白話說明</h3><p>${esc(t.summary)}</p>
+    <h3>重點</h3><ul>${(t.keyPoints || []).map(k => `<li>${esc(k)}</li>`).join("")}</ul>
+    ${t.trap ? `<h3>小心陷阱</h3><div class="trapbox">${esc(t.trap)}</div>` : ""}
+    <h3>教練紀錄 <small style="color:var(--muted);font-weight:400">（快照）</small></h3>
+    ${(t.mastery || []).length ? `<div class="mast">${t.mastery.map(m => `<span>${esc(m.status)}</span><span>${esc(m.concept)}</span><span class="d">${esc(m.date ? m.date.slice(5).replace("-", "/") : "未考")}</span>${m.note ? `<span class="nt">${esc(m.note)}</span>` : ""}`).join("")}</div>` : `<p class="tip" style="margin-top:0">教練的概念追蹤表裡沒有對應這個考點的概念。</p>`}
+    <h3>🍞 我的記憶吐司</h3>
+    <textarea class="toastin" placeholder="用自己的話寫一句口訣，例如「L1 歸零選特徵，L2 縮小不歸零」">${esc(toasts[id] || "")}</textarea>
+    <div class="savehint" id="savehint"></div>
+    ${nbrs[id].length ? `<h3>相關考點（${nbrs[id].length}）</h3><div class="rel">${nbrs[id].map(n => `<button data-id="${esc(n.id)}"><b style="color:${color(chOf(byId[n.id]))}">${prog3(n.id)} ${esc(byId[n.id].title)}</b>${n.why ? `<span>${esc(n.why)}</span>` : ""}</button>`).join("")}</div>` : ""}
+    <div class="prog">${["未讀", "讀過", "會了"].map((n, i) => `<button data-st="${i}" class="${st === i ? "on" : ""}">${n}</button>`).join("")}</div>
+    <div class="tip">「會了」＝蓋住說明能講出定義和一個例子，而且下面的題目都答對。</div>
+    <div class="row-acts"><button class="chip-btn" id="sumBtn">產生外出學習摘要</button></div>
+    ${(t.quiz || []).length ? `<h3>考題（${t.quiz.length}）</h3>` : ""}<div id="quizzes"></div>`;
+  body.querySelector(".back").onclick = () => showSection(s.id);
+  body.querySelectorAll(".rel [data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
+  body.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { setProgress(id, +b.dataset.st); body.querySelectorAll("[data-st]").forEach(x => x.classList.toggle("on", x === b)); });
+  const ta = body.querySelector(".toastin"); let th = null;
+  ta.addEventListener("input", () => {
+    clearTimeout(th); th = setTimeout(() => { toasts[id] = ta.value; if (!ta.value.trim()) delete toasts[id]; save(K.toast, toasts); touchTopic(id); paint(id); $("savehint").textContent = "已儲存"; }, 400);
+  });
+  $("sumBtn").onclick = () => showSummary([t]);
+  const box = body.querySelector("#quizzes");
+  (t.quiz || []).forEach((qz, qi) => box.appendChild(renderQuiz(t, qz, qi)));
+  body.scrollTop = 0;
+  if (scrollQi != null) { const el = box.children[scrollQi]; if (el) setTimeout(() => el.scrollIntoView({block:"start"}), 50); }
+}
+
+function recLine(t, qi) {
+  const r = qa[qkey(t.id, qi)];
+  const st = !r ? ((quizLog[t.id] || {})[qi] === "ok" ? "✓ 答對過" : "")
+    : unresolved(r) ? `🔴 錯 ${r.w} 次・答錯時選 ${r.lastWrong || r.last}・複習 ${r.lvl}/${GAP.length}${r.due ? `・${r.due <= today() ? "今天" : r.due.slice(5).replace("-", "/")} 複習` : ""}`
+    : r.w ? `🟢 錯過 ${r.w} 次，已複習過關` : `🟢 答對過`;
+  return `<span class="rec${r && unresolved(r) ? " w" : ""}">${st}</span>`;
+}
+function renderQuiz(t, qz, qi, opts = {}) {
+  const w = document.createElement("div"); w.className = "quiz";
+  const fig = (qz.figure ? figHTML([{src:qz.figure}]) : "") + figHTML(qz.figures);
+  w.innerHTML = `<div class="src"><span>${esc(qz.source || "")}</span>${readerLink(qz.pdf, qz.page, "原卷")}${opts.showTopic ? `<button class="linkbtn" data-goto style="min-height:0">${esc(t.title)} →</button>` : ""}${recLine(t, qi)}</div>
+    ${ctxHTML(qz.context)}<div class="stem">${esc(qz.stem)}</div>${fig}
+    ${qz.options.map((o, i) => `<button class="opt" data-i="${i}">(${L[i]}) ${esc(o)}</button>`).join("")}
+    <div class="fb"></div>`;
+  if (opts.showTopic) w.querySelector("[data-goto]").onclick = () => openTopic(t.id, true, qi);
+  const fb = w.querySelector(".fb"), opt = [...w.querySelectorAll(".opt")];
+  const ok = Array.isArray(qz.accept) && qz.accept.length ? qz.accept : [qz.answer];
+  const ansText = ok.map(i => L[i]).join("、");
+  let first = true, tries = 0;
+  const showAns = () => { opt.forEach(b => b.disabled = true); ok.forEach(i => opt[i].classList.add("right")); fb.innerHTML = `<div class="exp"><b>答案 (${ansText})</b>　${esc(qz.explanation)}</div>`; };
+  opt.forEach(b => b.onclick = () => {
+    const i = +b.dataset.i, right = ok.includes(i); tries++;
+    if (first) { first = false; record(t.id, qi, right, i); if (opts.onAnswer) opts.onAnswer(right); }   // 只有第一次作答算數
+    if (right) {
+      b.classList.add("right"); opt.forEach(x => x.disabled = true);
+      fb.innerHTML = `<div style="color:var(--ok)"><b>答對了！</b>${tries > 1 ? `（第 ${tries} 次，這題已記進錯題本）` : ""}</div><div class="exp">${esc(qz.explanation)}</div>`;
+    } else {
+      b.classList.add("wrong"); b.disabled = true;
+      fb.innerHTML = `<div class="hint">不對喔，已記進錯題本。提示：${esc(qz.hint || "回頭看一次重點。")}</div><button class="linkbtn">想不出來，看解析</button>`;
+      fb.querySelector(".linkbtn").onclick = showAns;
+    }
+    w.querySelector(".rec").outerHTML = recLine(t, qi);
+  });
+  return w;
+}
+
+/* ================= 今日複習 ================= */
+function showReview() {
+  select(null); reveal("full");
+  const list = dueList();
+  body.innerHTML = `<button class="back">← 回總覽</button><h2>今日複習</h2>
+    ${list.length ? `<p class="tip" style="margin-top:0">共 ${list.length} 題。答對→下次隔更久；答錯→明天再考。</p>` : `<p>今天沒有到期的錯題 🎉</p><p class="tip">答錯的題目隔天會出現在這裡。想多練可以用模擬考。</p>`}
+    <div id="rv"></div>`;
+  body.querySelector(".back").onclick = showHome;
+  const box = $("rv");
+  list.forEach(x => box.appendChild(renderQuiz(x.t, x.q, x.qi, {showTopic:true})));
+  body.scrollTop = 0;
+}
+
+/* ================= 錯題本 ================= */
+function qText(x, withExp) {
+  const r = qa[qkey(x.t.id, x.qi)] || {}, q = x.q;
+  const ok = (Array.isArray(q.accept) && q.accept.length ? q.accept : [q.answer]).map(i => L[i]).join("、");
+  const s = secById[x.t.section];
+  let out = `【${q.source || ""}｜${s.id === "X" ? "" : s.id + " "}${x.t.title}】\n${q.context ? "（題組）" + q.context.text + "\n" : ""}${q.stem}${(q.figures || []).length || (q.context && (q.context.figures || []).length) ? "\n（本題有附圖，見原卷 p." + q.page + "）" : ""}\n${q.options.map((o, i) => `(${L[i]}) ${o}`).join("\n")}\n答錯時選：(${r.lastWrong || r.last || "?"})　官方答案：(${ok})　錯 ${r.w || 0} 次`;
+  if (withExp) out += `\n> 解析：${q.explanation}`;
+  return out;
+}
+function showWrongBook() {
+  select(null); reveal("full");
+  const list = wrongList(), open = list.filter(x => unresolved(qa[qkey(x.t.id, x.qi)]));
+  body.innerHTML = `<button class="back">← 回總覽</button><h2>錯題本</h2>
+    <p class="tip" style="margin-top:0">${list.length ? `共 ${list.length} 題，未過 ${open.length} 題。` : "還沒有錯題。題目第一次答錯就會自動記進來。"}</p>
+    ${list.length ? `<div class="row-acts"><button class="chip-btn" id="cpAll">複製錯題本（HackMD）</button><button class="chip-btn" id="cpOpen">只複製未過的</button></div>` : ""}
+    <div class="list">${list.map((x, i) => { const r = qa[qkey(x.t.id, x.qi)]; return `<div class="row"><button data-i="${i}" style="flex:1;border:none;padding:0;min-height:44px;display:block;text-align:left"><span style="display:block">${unresolved(r) ? "🔴" : "🟢"} ${esc(x.t.title)}</span><span class="n">${esc(x.q.source || "")}・錯 ${r.w} 次・答錯時選 ${esc(r.lastWrong || r.last)}${unresolved(r) ? `・複習 ${r.lvl}/${GAP.length}` : ""}</span></button><button class="chip-btn" data-cp="${i}" style="min-height:36px;font-size:12px">#錯題</button></div>`; }).join("")}</div>`;
+  body.querySelector(".back").onclick = showHome;
+  body.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const x = list[+b.dataset.i]; openTopic(x.t.id, true, x.qi); });
+  body.querySelectorAll("[data-cp]").forEach(b => b.onclick = () => copyText("#錯題 " + qText(list[+b.dataset.cp], false), "，貼給教練"));
+  const md = arr => `# ${M.summarySubject || SUB.label} 錯題本（${today().replace(/-/g, "/")}）\n\n` + arr.map(x => {
+    const r = qa[qkey(x.t.id, x.qi)];
+    return `### ${unresolved(r) ? "🔴" : "🟢"} ${x.t.title}\n` + qText(x, true).split("\n").slice(1).join("\n") + `\n\n🍞 記憶吐司：${toasts[x.t.id] || "（未填）"}\n`;
+  }).join("\n---\n\n");
+  if ($("cpAll")) $("cpAll").onclick = () => copyText(md(list), "錯題本");
+  if ($("cpOpen")) $("cpOpen").onclick = () => copyText(md(open), "未過的錯題");
+  body.scrollTop = 0;
+}
+
+/* ================= 外出學習摘要 ================= */
+function summaryText(t) {
+  const ts = tStat(t), st = progress[t.id] || 0;
+  const level = ts.att ? (ts.open === 0 && st === 2 && ts.done > 0 ? "通過" : ts.open > 0 && ts.done === 0 ? "尚未過" : "部分") : ["尚未過", "部分", "通過"][st];
+  const stuck = (t.quiz || []).map((q, qi) => [q, qa[qkey(t.id, qi)]]).filter(([, r]) => r && r.w > 0)
+    .map(([q, r]) => `${q.source || ""}：答錯時選 (${r.lastWrong || r.last})，官方答案 (${(Array.isArray(q.accept) && q.accept.length ? q.accept : [q.answer]).map(i => L[i]).join("、")})${unresolved(r) ? `，複習中 ${r.lvl}/${GAP.length}` : "，已複習過關"}`);
+  const todayRes = (t.quiz || []).map((q, qi) => [q, qa[qkey(t.id, qi)]]).filter(([, r]) => r && (r.hist || []).some(h => h[0] === today()))
+    .map(([q, r]) => `${q.source || ""} ${r.hist.filter(h => h[0] === today()).slice(-1)[0][1] ? "🟢" : "🔴"}`);
+  const firstSentence = String(t.summary || "").split(/(?<=。)/)[0];
+  return `📋 外出學習摘要｜${today().replace(/-/g, "/")}
+
+科目：${M.summarySubject || SUB.label}
+概念：${t.title}
+掌握程度：${level}
+
+【判斷口訣】
+${(t.keyPoints || [])[0] || "（無）"}
+
+【核心比喻】
+${firstSentence}
+
+【正式定義】
+${(t.keyPoints || []).map(k => "・" + k).join("\n") || "尚未學習"}
+
+【我的推理鏈】
+${toasts[t.id] && toasts[t.id].trim() ? toasts[t.id].trim() : "（未填：請用自己的話補一句）"}
+
+【卡點紀錄】
+${stuck.length ? stuck.join("\n") : "無"}
+
+【概念關聯】
+${nbrs[t.id].map(n => byId[n.id].title).join("、") || "無"}
+
+【本次複習結果】
+${todayRes.length ? todayRes.join("\n") : "無"}`;
+}
+function showSummary(list, title) {
+  const txt = list.map(summaryText).join("\n\n————————\n\n");
+  body.innerHTML = `<button class="back">← 返回</button><h2>${esc(title || "外出學習摘要")}</h2>
+    <p class="tip" style="margin-top:0">格式和教練的「外出學習摘要」相同：複製後貼到 iCloud 備忘錄，回電腦再用 /update-learning 匯入。「我的推理鏈」來自你寫的記憶吐司。</p>
+    <div class="row-acts"><button class="chip-btn on" id="cpSum">複製</button></div>
+    <textarea class="out" readonly>${esc(txt)}</textarea>`;
+  body.querySelector(".back").onclick = () => list.length === 1 ? openTopic(list[0].id, false) : showHome();
+  $("cpSum").onclick = () => copyText(txt, "摘要");
+  body.scrollTop = 0; reveal("full");
+}
+function showTodaySummary() {
+  const list = touchedToday();
+  if (!list.length) { toast("今天還沒有讀過、作答或寫吐司的考點"); return; }
+  select(null); showSummary(list, `今天的外出學習摘要（${list.length} 個考點）`);
+}
+
+/* ================= 模擬考 ================= */
+function showMockSetup() {
+  select(null); reveal("full");
+  body.innerHTML = `<button class="back">← 回總覽</button><h2>模擬考</h2>
+    <p class="tip" style="margin-top:0">一次一題，作答後馬上看解析，最後給分數。答錯一樣會記進錯題本。</p>
+    <h3>範圍</h3><div class="seg" id="scope"><button data-v="weak" class="on">還不會＋錯題優先</button><button data-v="all">全部隨機</button></div>
+    <h3>題數</h3><div class="seg" id="num"><button data-v="10" class="on">10 題</button><button data-v="20">20 題</button><button data-v="50">50 題</button></div>
+    <div class="row-acts" style="margin-top:16px"><button class="chip-btn on" id="go" style="min-height:48px;padding:0 24px">開始</button></div>`;
+  body.querySelector(".back").onclick = showHome;
+  ["scope", "num"].forEach(id => $(id).onclick = e => { const b = e.target.closest("button"); if (!b) return; [...$(id).children].forEach(x => x.classList.toggle("on", x === b)); });
+  $("go").onclick = () => {
+    const weak = $("scope").querySelector(".on").dataset.v === "weak", n = +$("num").querySelector(".on").dataset.v;
+    const pool = allQs.map(x => {   // 加權抽題：錯過的、還不會的比較容易被抽到
+      const r = qa[qkey(x.t.id, x.qi)];
+      const wgt = !weak ? 1 : (unresolved(r) ? 6 : 1) * ((progress[x.t.id] || 0) === 2 ? 1 : 3) * (r && r.lastOk && !unresolved(r) ? .5 : 1);
+      return {x, k:Math.pow(Math.random(), 1 / wgt)};
+    }).sort((a, b) => b.k - a.k).slice(0, Math.min(n, allQs.length)).map(o => o.x);
+    runMock(pool);
+  };
+  body.scrollTop = 0;
+}
+function runMock(list) {
+  let i = 0, score = 0, answered = 0; const wrong = [];
+  const step = () => {
+    if (i >= list.length) return finish();
+    const x = list[i];
+    body.innerHTML = `<button class="back">← 結束</button><h2>模擬考 ${i + 1} / ${list.length}</h2><div class="tip" style="margin-top:0">目前答對 ${score} 題</div><div id="mq"></div><div class="row-acts"><button class="chip-btn on" id="next" style="display:none;min-height:48px;padding:0 24px">${i + 1 < list.length ? "下一題" : "看成績"}</button></div>`;
+    body.querySelector(".back").onclick = () => { if (confirm("結束模擬考？已作答的會保留紀錄。")) finish(); };
+    const card = renderQuiz(x.t, x.q, x.qi, {showTopic:false, onAnswer:ok => { answered++; if (ok) score++; else wrong.push(x); }});
+    $("mq").appendChild(card);
+    card.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {   // 模擬考不給提示：第一次作答就公布答案
+      const ok = Array.isArray(x.q.accept) && x.q.accept.length ? x.q.accept : [x.q.answer];
+      card.querySelectorAll(".opt").forEach((o, j) => { o.disabled = true; if (ok.includes(j)) o.classList.add("right"); });
+      if (!ok.includes(+b.dataset.i)) card.querySelector(".fb").innerHTML = `<div style="color:var(--bad)"><b>答錯了</b>（已記進錯題本）</div><div class="exp"><b>答案 (${ok.map(j => L[j]).join("、")})</b>　${esc(x.q.explanation)}</div>`;
+      $("next").style.display = "";
+    }, {once:true}));
+    $("next").onclick = () => { i++; step(); };
+    body.scrollTop = 0;
+  };
+  const finish = () => {
+    const done = answered;
+    body.innerHTML = `<button class="back">← 回總覽</button><h2>模擬考成績</h2>
+      <div class="score">${score} / ${done}</div><p class="tip">${done ? `答對率 ${Math.round(score / Math.max(1, done) * 100)}%` : ""}</p>
+      ${wrong.length ? `<h3>這次答錯（已記進錯題本）</h3><div class="list">${wrong.map((x, j) => `<button data-j="${j}"><span>🔴 ${esc(x.t.title)}</span><span class="n">${esc(x.q.source || "")}</span></button>`).join("")}</div>` : ""}
+      <div class="row-acts"><button class="chip-btn" id="again">再考一次</button></div>`;
+    body.querySelector(".back").onclick = showHome;
+    body.querySelectorAll("[data-j]").forEach(b => b.onclick = () => { const x = wrong[+b.dataset.j]; openTopic(x.t.id, true, x.qi); });
+    $("again").onclick = showMockSetup;
+    body.scrollTop = 0;
+  };
+  step();
+}
+
+/* ================= 啟動 ================= */
+if (M.examDate) {
+  const days = Math.ceil((new Date(M.examDate + "T00:00:00") - new Date(new Date().toDateString())) / 864e5);
+  $("days").textContent = days > 0 ? days : days === 0 ? "今天" : "—";
+}
+draw(); renderStats(); showHome(); setSheet(isNarrow() ? "half" : sheet);
+requestAnimationFrame(() => { resetView(); lastW = W(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) showHome(); });
+}
+})();
+</script>
+</body>
+</html>

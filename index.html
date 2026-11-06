@@ -981,6 +981,9 @@ if (M.examDate) {
 }
 draw(); renderStats(); showHome(); setSheet(isNarrow() ? "half" : sheet);
 requestAnimationFrame(() => { resetView(); lastW = W(); });
+/* 深連結：#t=考點id（例 #t=5.3-05）直接開該考點；#s=小節id（例 #s=5.3）開整節；給複習計畫網頁用 */
+const openFromHash = () => { const mt = /[#&]t=([^&]+)/.exec(location.hash), ms = /[#&]s=([^&]+)/.exec(location.hash); if (mt) { const id = decodeURIComponent(mt[1]); if (byId[id]) setTimeout(() => openTopic(id, true), 350); } else if (ms) { const sid = decodeURIComponent(ms[1]); const s = secs.find(x => x.id === sid); if (s) setTimeout(() => { showSection(s.id); zoomSection(s); }, 350); } };
+openFromHash(); window.addEventListener("hashchange", openFromHash);
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) showHome(); });
 }
 })();

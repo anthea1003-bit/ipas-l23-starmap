@@ -75,6 +75,8 @@ svg.focus .node:not(.nb):not(.dim){opacity:.35}
 svg.far .node.small text.lb{display:none}
 .node.dim{opacity:.12}
 .maptools{position:absolute;left:calc(12px + var(--sal));bottom:12px;display:flex;flex-direction:column;gap:6px}
+.readbtn{display:block;width:100%;margin:10px 0 2px;min-height:48px;font-size:calc(var(--u) * 1.02);font-weight:600;border:2px solid var(--accent);color:var(--accent);background:transparent;border-radius:12px}
+.readbtn.on{background:var(--accent);color:#0c1120}
 .chip-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:14px;min-height:40px;white-space:nowrap}
 .chip-btn.on{background:var(--accent);color:#1b1b1b;border-color:var(--accent);font-weight:700}
 .chip-btn.red{border-color:var(--bad);color:var(--bad)}
@@ -764,6 +766,7 @@ function openTopic(id, fly, scrollQi) {
       ${ts.open ? `<span class="tag bad">錯題未過 ${ts.open}</span>` : ts.wrong ? `<span class="tag ok">錯題都過了</span>` : ""}
       ${(t.examRefs || []).map(r => `<span class="tag">${esc(r)}</span>`).join("")}
       ${t.guidePages ? `<span class="tag">指引 p.${esc(t.guidePages)}</span>` : notInGuide(t) ? `<span class="tag">指引沒寫・考古題才有</span>` : ""}</div>
+    <button class="readbtn" id="readBtn"></button>
     ${t.guidePdfPage && M.readerPdfs && M.readerPdfs.g ? `<div style="margin-top:6px">${readerLink(M.readerPdfs.g, t.guidePdfPage, "陪讀閱讀器開學習指引")}</div>` : ""}
     <h3>白話說明</h3><p>${esc(t.summary)}</p>
     <h3>重點</h3><ul>${(t.keyPoints || []).map(k => `<li>${esc(k)}</li>`).join("")}</ul>
@@ -780,7 +783,15 @@ function openTopic(id, fly, scrollQi) {
     ${(t.quiz || []).length ? `<h3>考題（${t.quiz.length}）</h3>` : ""}<div id="quizzes"></div>`;
   body.querySelector(".back").onclick = () => showSection(s.id);
   body.querySelectorAll(".rel [data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
-  body.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { setProgress(id, +b.dataset.st); body.querySelectorAll("[data-st]").forEach(x => x.classList.toggle("on", x === b)); });
+  const syncRead = () => {
+    const cur = progress[id] || 0, rb = $("readBtn");
+    rb.textContent = cur === 0 ? "標記為已讀過" : cur === 1 ? "✓ 已讀過（再按一次取消）" : "✓ 已經會了";
+    rb.classList.toggle("on", cur > 0);
+    body.querySelectorAll("[data-st]").forEach(x => x.classList.toggle("on", +x.dataset.st === cur));
+  };
+  $("readBtn").onclick = () => { const cur = progress[id] || 0; if (cur === 2) return; setProgress(id, cur === 0 ? 1 : 0); syncRead(); toast(cur === 0 ? "已標記讀過" : "已取消"); };
+  body.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { setProgress(id, +b.dataset.st); syncRead(); });
+  syncRead();
   const ta = body.querySelector(".toastin"); let th = null;
   ta.addEventListener("input", () => {
     clearTimeout(th); th = setTimeout(() => { toasts[id] = ta.value; if (!ta.value.trim()) delete toasts[id]; save(K.toast, toasts); touchTopic(id); paint(id); $("savehint").textContent = "已儲存"; }, 400);

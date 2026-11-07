@@ -150,10 +150,12 @@ textarea.out{min-height:260px;font-size:14px}
 @media (max-width:899px){
   #app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   #rs{display:none}
-  header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px}
+  header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px;flex-wrap:wrap}
   .brand{display:none}
   .switch a{padding:0 12px;min-height:40px}
-  .stats{display:none}
+  /* 手機：各章百分比改到第二列，整列可左右滑（原本是整排隱藏） */
+  .stats{flex:1 1 100%;order:9;gap:12px;padding:2px 0 2px}
+  .stat{min-width:72px}
   .search{position:static;flex:1;display:flex;justify-content:flex-end}
   .search input{display:none}
   .search.open input{display:block;position:absolute;left:calc(10px + var(--sal));right:calc(10px + var(--sar));top:100%;width:auto;z-index:31;margin-top:6px}

@@ -368,12 +368,12 @@ window.MAP_DATA = {
     {
      "concept": "PCA解釋變異量比例",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "PCA應用限制與PCA vs t-SNE",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -563,7 +563,7 @@ window.MAP_DATA = {
     {
      "concept": "非凸函數",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -727,7 +727,7 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "損失函數與輸出層配對",
-     "status": "🟦",
+     "status": "🔴",
      "date": "2026-09-26"
     }
    ],
@@ -1159,17 +1159,17 @@ window.MAP_DATA = {
     {
      "concept": "CNN 卷積神經網路",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "VGG16 與 VGG19",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "Pooling（池化層）",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1379,7 +1379,7 @@ window.MAP_DATA = {
     {
      "concept": "激活函數",
      "status": "🟢",
-     "date": "2026-09-26"
+     "date": "2026-11-02"
     }
    ],
    "quiz": [
@@ -1488,12 +1488,12 @@ window.MAP_DATA = {
     {
      "concept": "RNN 原理",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "LSTM 用途",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1545,12 +1545,12 @@ window.MAP_DATA = {
     {
      "concept": "多頭注意力與位置編碼",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "BERT vs GPT 讀懂用編碼器生成用解碼器",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1632,7 +1632,7 @@ window.MAP_DATA = {
     {
      "concept": "反向傳播",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1731,7 +1731,7 @@ window.MAP_DATA = {
     {
      "concept": "微調三選一 特徵萃取全面微調LoRA",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1855,7 +1855,7 @@ window.MAP_DATA = {
     {
      "concept": "微調三選一 特徵萃取全面微調LoRA",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1898,7 +1898,7 @@ window.MAP_DATA = {
     {
      "concept": "RAG 與混合搜尋",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -1944,8 +1944,8 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "特徵縮放與距離型模型",
-     "status": "🟢",
-     "date": "2026-10-13",
+     "status": "🔴",
+     "date": "2026-11-02",
      "note": "部分：縮短間隔再驗"
     }
    ],
@@ -2224,12 +2224,12 @@ window.MAP_DATA = {
     {
      "concept": "資料洩漏與訓練集 fit",
      "status": "⚪",
-     "date": ""
+     "date": "2026-10-01"
     },
     {
      "concept": "115-1 Q44 LDA 管線洩漏",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -2428,7 +2428,7 @@ window.MAP_DATA = {
     {
      "concept": "SHAP",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "內在可解釋模型選擇",
@@ -2494,8 +2494,8 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "交叉驗證選型",
-     "status": "⚪",
-     "date": ""
+     "status": "🟢",
+     "date": "2026-11-02"
     },
     {
      "concept": "模型診斷 變異殘差與交叉驗證",
@@ -2711,7 +2711,7 @@ window.MAP_DATA = {
     {
      "concept": "混淆矩陣四格",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -2939,12 +2939,12 @@ window.MAP_DATA = {
     {
      "concept": "偏差—變異診斷 射箭比喻",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     },
     {
      "concept": "過擬合判讀",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [
@@ -3363,7 +3363,7 @@ window.MAP_DATA = {
     {
      "concept": "網格搜尋與隨機搜尋",
      "status": "⚪",
-     "date": ""
+     "date": "-"
     }
    ],
    "quiz": [

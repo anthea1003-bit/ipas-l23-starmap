@@ -47,6 +47,8 @@ header{grid-column:1/-1;display:flex;align-items:center;gap:14px;
 .results button{display:block;width:100%;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:15px;min-height:44px}
 .results button span{color:var(--muted);font-size:12px;margin-left:6px}
 .iconbtn{display:none;min-width:44px;min-height:44px;border-radius:10px;font-size:20px;align-items:center;justify-content:center}
+.sync{display:flex;gap:6px;flex:0 0 auto}
+.sync .chip-btn{min-height:36px;padding:0 10px;font-size:13px}
 .countdown{text-align:center;line-height:1.05;flex:0 0 auto}
 .countdown b{font-size:24px;color:var(--accent)}
 .countdown small{display:block;font-size:11px;color:var(--muted);white-space:nowrap}
@@ -191,6 +193,7 @@ textarea.out{min-height:260px;font-size:14px}
       <input id="q" type="search" placeholder="搜尋考點…" autocomplete="off" enterkeyhint="search">
       <div class="results" id="results"></div>
     </div>
+    <div class="sync"><button class="chip-btn" id="expTop">複製進度碼</button><button class="chip-btn" id="impTop">貼上進度碼</button></div>
     <div class="countdown"><b id="days">--</b><small id="examLabel">天後考試</small></div>
   </header>
 
@@ -717,11 +720,12 @@ function showHome() {
   body.querySelectorAll("[data-size]").forEach(b => b.onclick = () => { ui.size = b.dataset.size; saveUI(); draw(); resetView(); showHome(); });
   $("readerSave").onclick = () => { const v = $("readerIn").value.trim(); if (!/^https?:\/\//.test(v)) { toast("網址要以 http:// 或 https:// 開頭"); return; } readerBase = v; try { localStorage.setItem("starmap-reader", v); } catch (e) {} toast("已儲存"); };
   $("readerReset").onclick = () => { readerBase = READER_DEFAULT; $("readerIn").value = readerBase; try { localStorage.removeItem("starmap-reader"); } catch (e) {} toast("已改回預設"); };
-  $("exp").onclick = () => copyText(btoa(unescape(encodeURIComponent(JSON.stringify({v:2, s:SID, p:progress, q:quizLog, qa, toast:toasts})))), "進度碼");
+  $("exp").onclick = exportCode;
   $("imp").onclick = importCode;
   if ($("relayout")) $("relayout").onclick = () => { pos = {}; save(K.pos, pos); draw(); resetView(); showHome(); toast("已重排"); };
   body.scrollTop = 0;
 }
+function exportCode() { copyText(btoa(unescape(encodeURIComponent(JSON.stringify({v:2, s:SID, p:progress, q:quizLog, qa, toast:toasts})))), "進度碼"); }
 function importCode() {
   const code = prompt("貼上進度碼："); if (!code) return;
   try {
@@ -986,6 +990,7 @@ requestAnimationFrame(() => { resetView(); lastW = W(); });
 /* 深連結：#t=考點id（例 #t=5.3-05）直接開該考點；#s=小節id（例 #s=5.3）開整節；給複習計畫網頁用 */
 const openFromHash = () => { const mt = /[#&]t=([^&]+)/.exec(location.hash), ms = /[#&]s=([^&]+)/.exec(location.hash); if (mt) { const id = decodeURIComponent(mt[1]); if (byId[id]) setTimeout(() => openTopic(id, true), 350); } else if (ms) { const sid = decodeURIComponent(ms[1]); const s = secs.find(x => x.id === sid); if (s) setTimeout(() => { showSection(s.id); zoomSection(s); }, 350); } };
 openFromHash(); window.addEventListener("hashchange", openFromHash);
+$("expTop").onclick = exportCode; $("impTop").onclick = importCode;   // 頁首也能複製／貼上進度碼（手機找得到）
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) showHome(); });
 }
 })();

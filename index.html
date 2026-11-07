@@ -150,6 +150,8 @@ textarea.out{min-height:260px;font-size:14px}
 
 /* iPad 直放、iPhone：星圖滿版＋底部抽屜 */
 @media (max-width:899px){
+  /* iOS Safari：輸入框彈鍵盤會把整頁往上推、收鍵盤後頁首被遮；整頁釘死就不會被推 */
+  html,body{position:fixed;inset:0;width:100%;height:100%}
   #app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   #rs{display:none}
   header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px;flex-wrap:wrap}
@@ -991,6 +993,11 @@ requestAnimationFrame(() => { resetView(); lastW = W(); });
 const openFromHash = () => { const mt = /[#&]t=([^&]+)/.exec(location.hash), ms = /[#&]s=([^&]+)/.exec(location.hash); if (mt) { const id = decodeURIComponent(mt[1]); if (byId[id]) setTimeout(() => openTopic(id, true), 350); } else if (ms) { const sid = decodeURIComponent(ms[1]); const s = secs.find(x => x.id === sid); if (s) setTimeout(() => { showSection(s.id); zoomSection(s); }, 350); } };
 openFromHash(); window.addEventListener("hashchange", openFromHash);
 $("expTop").onclick = exportCode; $("impTop").onclick = importCode;   // 頁首也能複製／貼上進度碼（手機找得到）
+/* iOS Safari 保險：鍵盤收起、回到分頁時若頁面還停在被推上去的位置，拉回頂端 */
+const unshift = () => { window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0; };
+document.addEventListener("focusout", () => setTimeout(unshift, 60));
+if (window.visualViewport) visualViewport.addEventListener("resize", () => setTimeout(unshift, 60));
+window.addEventListener("pageshow", unshift);
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) showHome(); });
 }
 })();

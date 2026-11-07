@@ -85,7 +85,10 @@ svg.far .node.small text.lb{display:none}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center;padding:24px;line-height:1.8}
 
 #rs{background:var(--bg2);border-left:1px solid var(--line);cursor:col-resize;touch-action:none;position:relative}
-#rs::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:48px;margin:-24px 0 0 -2px;border-radius:2px;background:var(--muted);opacity:.6}
+#rs::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:64px;margin:-32px 0 0 -3px;border-radius:3px;background:var(--muted);opacity:.75;pointer-events:none}
+/* 手指好抓：分隔線本身 8px，左右各加 14px 隱形熱區（iPad 觸控用） */
+#rs::before{content:"";position:absolute;left:-14px;right:-14px;top:0;bottom:0;z-index:5}
+#rs:hover::after,#rs.on::after{background:var(--accent);opacity:1}
 
 /* 說明欄 */
 #panel{--u:calc(15px * var(--pz));font-size:var(--u);background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0;min-height:0}
@@ -216,7 +219,7 @@ textarea.out{min-height:260px;font-size:14px}
     </div>
   </div>
 
-  <div id="rs" role="separator" aria-label="拖曳調整說明欄寬度"></div>
+  <div id="rs" role="separator" aria-label="拖曳調整說明欄寬度" title="左右拖曳調整說明欄寬度，雙擊還原"></div>
   <aside id="panel">
     <div class="grab" id="grab" aria-label="拖曳調整說明欄高度"><i></i></div>
     <div class="ptools"><button id="fdn" aria-label="縮小字級">A−</button><button id="fup" aria-label="放大字級">A＋</button></div>
@@ -608,9 +611,9 @@ $("fdn").onclick = () => { ui.pz -= .1; saveUI(); applyUI(); };
 applyUI(); addEventListener("resize", applyUI);
 (() => {
   const rs = $("rs"); let drag = false;
-  rs.addEventListener("pointerdown", e => { drag = true; rs.setPointerCapture(e.pointerId); e.preventDefault(); });
+  rs.addEventListener("pointerdown", e => { drag = true; rs.classList.add("on"); rs.setPointerCapture(e.pointerId); e.preventDefault(); });
   rs.addEventListener("pointermove", e => { if (drag) { ui.pw = innerWidth - e.clientX; applyUI(); } });
-  const end = () => { if (drag) { drag = false; saveUI(); } };
+  const end = () => { if (drag) { drag = false; rs.classList.remove("on"); saveUI(); } };
   rs.addEventListener("pointerup", end); rs.addEventListener("pointercancel", end);
   rs.addEventListener("dblclick", () => { ui.pw = 390; saveUI(); applyUI(); });
 })();

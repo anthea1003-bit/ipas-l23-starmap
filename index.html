@@ -154,7 +154,7 @@ textarea.out{min-height:260px;font-size:14px}
   html,body{position:fixed;inset:0;width:100%;height:100%}
   #app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   #rs{display:none}
-  header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px;flex-wrap:wrap}
+  header{gap:8px;padding-top:calc(6px + var(--sat));padding-bottom:6px;flex-wrap:wrap;position:relative}   /* 搜尋框與結果要貼在頁首下方，不是整頁底部 */
   .brand{display:none}
   .switch a{padding:0 12px;min-height:40px}
   /* 手機：各章百分比改到第二列，整列可左右滑（原本是整排隱藏） */
@@ -998,6 +998,7 @@ const unshift = () => { window.scrollTo(0, 0); document.documentElement.scrollTo
 document.addEventListener("focusout", () => setTimeout(unshift, 60));
 if (window.visualViewport) visualViewport.addEventListener("resize", () => setTimeout(unshift, 60));
 window.addEventListener("pageshow", unshift);
+document.body.addEventListener("scroll", unshift);   // body 被 focus 推動時立刻拉回
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)) showHome(); });
 }
 })();

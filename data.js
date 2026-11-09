@@ -728,7 +728,7 @@ window.MAP_DATA = {
     {
      "concept": "損失函數與輸出層配對",
      "status": "🔴",
-     "date": "2026-09-26"
+     "date": "2026-11-08"
     }
    ],
    "quiz": [
@@ -1549,8 +1549,8 @@ window.MAP_DATA = {
     },
     {
      "concept": "BERT vs GPT 讀懂用編碼器生成用解碼器",
-     "status": "⚪",
-     "date": "-"
+     "status": "🟢",
+     "date": "2026-11-08"
     }
    ],
    "quiz": [

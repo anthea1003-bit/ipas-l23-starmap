@@ -727,8 +727,8 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "損失函數與輸出層配對",
-     "status": "🔴",
-     "date": "2026-11-08"
+     "status": "🟢",
+     "date": "2026-11-10"
     }
    ],
    "quiz": [
@@ -1492,8 +1492,8 @@ window.MAP_DATA = {
     },
     {
      "concept": "LSTM 用途",
-     "status": "⚪",
-     "date": "-"
+     "status": "🟢",
+     "date": "2026-11-10"
     }
    ],
    "quiz": [
@@ -1897,8 +1897,8 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "RAG 與混合搜尋",
-     "status": "⚪",
-     "date": "-"
+     "status": "🟢",
+     "date": "2026-11-10"
     }
    ],
    "quiz": [

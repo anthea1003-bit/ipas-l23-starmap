@@ -1,0 +1,3481 @@
+[
+  {
+    "section": "3.1",
+    "concept": "離散型機率分佈",
+    "guidePages": "3-3",
+    "topicId": "3.1-03",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "伯努利分佈",
+    "guidePages": "3-3",
+    "topicId": "3.1-04",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "二項分佈",
+    "guidePages": "3-3",
+    "topicId": "3.1-05",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "泊松分佈",
+    "guidePages": "3-3",
+    "topicId": "3.1-06",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "連續型機率分佈",
+    "guidePages": "3-3～3-4",
+    "topicId": "3.1-07",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "常態分佈",
+    "guidePages": "3-4",
+    "topicId": "3.1-08",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "均勻分佈",
+    "guidePages": "3-4",
+    "topicId": "3.1-09",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "指數分佈",
+    "guidePages": "3-4",
+    "topicId": "3.1-10",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "卡方分佈",
+    "guidePages": "3-4",
+    "topicId": "3.1-11",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "條件機率",
+    "guidePages": "3-5",
+    "topicId": "3.1-12",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "似然",
+    "guidePages": "3-6",
+    "topicId": "3.1-13",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "邊際機率",
+    "guidePages": "3-6",
+    "topicId": "3.1-14",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "統計推論",
+    "guidePages": "3-6～3-7",
+    "topicId": "3.1-15",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "參數估計",
+    "guidePages": "3-7",
+    "topicId": "3.1-16",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "假設檢定",
+    "guidePages": "3-7",
+    "topicId": "3.1-17",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "顯著水準（α）",
+    "guidePages": "3-8",
+    "topicId": "3.1-18",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "p 值",
+    "guidePages": "3-8",
+    "topicId": "3.1-18",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "統計量",
+    "guidePages": "3-8",
+    "topicId": "3.1-19",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "期望值",
+    "guidePages": "3-8",
+    "topicId": "3.1-20",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "變異數",
+    "guidePages": "3-8",
+    "topicId": "3.1-21",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "標準差",
+    "guidePages": "3-8",
+    "topicId": "3.1-21",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "偏態",
+    "guidePages": "3-8",
+    "topicId": "3.1-22",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "峰度",
+    "guidePages": "3-8",
+    "topicId": "3.1-23",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "貝氏定理",
+    "guidePages": "3-5～3-6",
+    "topicId": "3.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.1",
+    "concept": "先驗機率",
+    "guidePages": "3-6",
+    "topicId": "3.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.1",
+    "concept": "後驗機率",
+    "guidePages": "3-6",
+    "topicId": "3.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.2",
+    "concept": "向量",
+    "guidePages": "3-9～3-10",
+    "topicId": "3.2-03",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "L2 範數",
+    "guidePages": "3-10",
+    "topicId": "3.2-04",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "向量加減",
+    "guidePages": "3-10",
+    "topicId": "3.2-05",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "線性組合",
+    "guidePages": "3-10",
+    "topicId": "3.2-05",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "矩陣表示",
+    "guidePages": "3-10",
+    "topicId": "3.2-06",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "矩陣轉置",
+    "guidePages": "3-10, 3-13～3-14",
+    "topicId": "3.2-07",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "反矩陣",
+    "guidePages": "3-10",
+    "topicId": "3.2-08",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "偽逆",
+    "guidePages": "3-10",
+    "topicId": "3.2-08",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "線性變換",
+    "guidePages": "3-11～3-12",
+    "topicId": "3.2-09",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "縮放",
+    "guidePages": "3-11",
+    "topicId": "3.2-10",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "旋轉",
+    "guidePages": "3-11",
+    "topicId": "3.2-11",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "剪切",
+    "guidePages": "3-11",
+    "topicId": "3.2-12",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "投影",
+    "guidePages": "3-11",
+    "topicId": "3.2-13",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "特徵空間重構",
+    "guidePages": "3-12",
+    "topicId": "3.2-14",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "矩陣分解",
+    "guidePages": "3-13～3-15",
+    "topicId": "3.2-15",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "特徵值分解",
+    "guidePages": "3-13～3-14",
+    "topicId": "3.2-16",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "奇異值分解",
+    "guidePages": "3-14",
+    "topicId": "3.2-17",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "非負矩陣分解",
+    "guidePages": "3-15",
+    "topicId": "3.2-18",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "最小平方估計",
+    "guidePages": "3-16",
+    "topicId": "3.2-19",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "幾何觀點下的線性迴歸",
+    "guidePages": "3-16～3-17",
+    "topicId": "3.2-20",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "點積",
+    "guidePages": "3-9",
+    "topicId": "3.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.2",
+    "concept": "矩陣乘法",
+    "guidePages": "3-10",
+    "topicId": "3.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.2",
+    "concept": "嵌入層",
+    "guidePages": "3-12",
+    "topicId": "5.1-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.2",
+    "concept": "主成分分析",
+    "guidePages": "3-12～3-14",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "3.2",
+    "concept": "維度簡化",
+    "guidePages": "3-15～3-16",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "決策變數",
+    "guidePages": "3-19",
+    "topicId": "3.3-05",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "可行域",
+    "guidePages": "3-20",
+    "topicId": "3.3-06",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "凸性",
+    "guidePages": "3-20～3-21",
+    "topicId": "3.3-07",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "可導性",
+    "guidePages": "3-20～3-21",
+    "topicId": "3.3-08",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "對比損失",
+    "guidePages": "3-22",
+    "topicId": "3.3-09",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "Focal Loss",
+    "guidePages": "3-22",
+    "topicId": "3.3-10",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "排序損失",
+    "guidePages": "3-22",
+    "topicId": "3.3-11",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "重建損失",
+    "guidePages": "3-22",
+    "topicId": "3.3-12",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "隨機梯度下降",
+    "guidePages": "3-24",
+    "topicId": "3.3-13",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "小批次梯度下降",
+    "guidePages": "3-24",
+    "topicId": "3.3-14",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "RMSprop",
+    "guidePages": "3-25",
+    "topicId": "3.3-15",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "收斂判準",
+    "guidePages": "3-26",
+    "topicId": "3.3-16",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "訓練穩定性",
+    "guidePages": "3-27",
+    "topicId": "3.3-17",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "學習率排程",
+    "guidePages": "3-27",
+    "topicId": "3.3-18",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "批次正規化",
+    "guidePages": "3-27",
+    "topicId": "3.3-19",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "目標函數",
+    "guidePages": "3-18～3-19",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "非凸問題",
+    "guidePages": "3-21",
+    "topicId": "3.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "損失函數",
+    "guidePages": "3-21～3-23",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "均方誤差（MSE）",
+    "guidePages": "3-22～3-23",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "平均絕對誤差（MAE）",
+    "guidePages": "3-22～3-23",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "Huber 損失",
+    "guidePages": "3-22",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "交叉熵損失",
+    "guidePages": "3-22",
+    "topicId": "4.3-49",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "梯度下降法",
+    "guidePages": "3-23～3-24",
+    "topicId": "3.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "動量法",
+    "guidePages": "3-24～3-25",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "Adagrad",
+    "guidePages": "3-25",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "Adam",
+    "guidePages": "3-25～3-26",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "提早停止",
+    "guidePages": "3-27",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "3.3",
+    "concept": "梯度裁剪",
+    "guidePages": "3-27",
+    "topicId": "4.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "3.1",
+    "concept": "離散型隨機變數",
+    "guidePages": "3-3",
+    "topicId": "3.1-03",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "機率質量函數（PMF）",
+    "guidePages": "3-3",
+    "topicId": "3.1-03",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "連續型隨機變數",
+    "guidePages": "3-3～3-4",
+    "topicId": "3.1-07",
+    "status": "new"
+  },
+  {
+    "section": "3.1",
+    "concept": "機率密度函數（PDF）",
+    "guidePages": "3-4",
+    "topicId": "3.1-07",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "特徵矩陣",
+    "guidePages": "3-10",
+    "topicId": "3.2-06",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "權重矩陣",
+    "guidePages": "3-10",
+    "topicId": "3.2-06",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "特徵重組",
+    "guidePages": "3-12",
+    "topicId": "3.2-14",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "維度轉換",
+    "guidePages": "3-12",
+    "topicId": "3.2-14",
+    "status": "new"
+  },
+  {
+    "section": "3.2",
+    "concept": "方向加權",
+    "guidePages": "3-12",
+    "topicId": "3.2-14",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "損失函數變化趨緩",
+    "guidePages": "3-26",
+    "topicId": "3.3-16",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "驗證集效能不再提升",
+    "guidePages": "3-26",
+    "topicId": "3.3-16",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "梯度趨近零",
+    "guidePages": "3-26",
+    "topicId": "3.3-16",
+    "status": "new"
+  },
+  {
+    "section": "3.3",
+    "concept": "訓練步數或時間達上限",
+    "guidePages": "3-26",
+    "topicId": "3.3-16",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "機器學習",
+    "guidePages": "4-2～4-4",
+    "topicId": "4.1-02",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "輸入資料與特徵空間",
+    "guidePages": "4-3",
+    "topicId": "4.1-03",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "分類任務",
+    "guidePages": "4-3～4-6",
+    "topicId": "4.1-04",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "迴歸任務",
+    "guidePages": "4-3～4-6",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "聚類",
+    "guidePages": "4-3～4-8",
+    "topicId": "4.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "降維",
+    "guidePages": "4-3～4-8",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "序列決策",
+    "guidePages": "4-3",
+    "topicId": "4.1-05",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "模型與假設空間",
+    "guidePages": "4-4",
+    "topicId": "4.1-06",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "損失函數",
+    "guidePages": "4-4",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "均方誤差（MSE）",
+    "guidePages": "4-4",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "平均絕對誤差（MAE）",
+    "guidePages": "4-4",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "交叉熵損失",
+    "guidePages": "4-4",
+    "topicId": "4.3-49",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "資料分割與評估準則",
+    "guidePages": "4-5",
+    "topicId": "4.1-07",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "訓練集",
+    "guidePages": "4-5",
+    "topicId": "4.1-07",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "驗證集",
+    "guidePages": "4-5",
+    "topicId": "4.1-07",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "測試集",
+    "guidePages": "4-5",
+    "topicId": "4.1-07",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "監督式學習",
+    "guidePages": "4-5～4-7",
+    "topicId": "4.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "非監督式學習",
+    "guidePages": "4-7～4-9",
+    "topicId": "4.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "強化式學習",
+    "guidePages": "4-9～4-11",
+    "topicId": "4.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.1",
+    "concept": "潛在表示學習",
+    "guidePages": "4-7～4-8",
+    "topicId": "4.1-08",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "馬可夫決策過程",
+    "guidePages": "4-9～4-10",
+    "topicId": "4.1-09",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "代理人",
+    "guidePages": "4-9～4-10",
+    "topicId": "4.1-09",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "環境",
+    "guidePages": "4-9～4-10",
+    "topicId": "4.1-09",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "狀態與動作",
+    "guidePages": "4-10",
+    "topicId": "4.1-10",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "狀態",
+    "guidePages": "4-10",
+    "topicId": "4.1-10",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "動作",
+    "guidePages": "4-10",
+    "topicId": "4.1-10",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "報酬",
+    "guidePages": "4-10～4-11",
+    "topicId": "4.1-11",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "策略與策略學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-12",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "策略",
+    "guidePages": "4-10",
+    "topicId": "4.1-12",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "策略學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-12",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "價值函數與價值學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-13",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "價值函數",
+    "guidePages": "4-10",
+    "topicId": "4.1-13",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "價值學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-13",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "模型式強化學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-14",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "模型無關強化學習",
+    "guidePages": "4-10",
+    "topicId": "4.1-15",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "離散與連續動作",
+    "guidePages": "4-10",
+    "topicId": "4.1-16",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "離散動作空間",
+    "guidePages": "4-10",
+    "topicId": "4.1-16",
+    "status": "new"
+  },
+  {
+    "section": "4.1",
+    "concept": "連續動作空間",
+    "guidePages": "4-10",
+    "topicId": "4.1-16",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "線性迴歸",
+    "guidePages": "4-12～4-14",
+    "topicId": "4.2-04",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "Lasso 迴歸",
+    "guidePages": "4-14～4-17",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "嶺迴歸",
+    "guidePages": "4-15～4-17",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "支援向量迴歸",
+    "guidePages": "4-17～4-19",
+    "topicId": "4.2-05",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "決策樹迴歸",
+    "guidePages": "4-19～4-21",
+    "topicId": "4.2-06",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "集成式迴歸",
+    "guidePages": "4-21～4-25",
+    "topicId": "4.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "隨機森林迴歸",
+    "guidePages": "4-21～4-22",
+    "topicId": "4.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "梯度提升迴歸",
+    "guidePages": "4-22",
+    "topicId": "4.2-07",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "XGBoost",
+    "guidePages": "4-22～4-25",
+    "topicId": "4.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "LightGBM",
+    "guidePages": "4-23～4-25",
+    "topicId": "4.2-08",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "邏輯迴歸",
+    "guidePages": "4-26～4-28",
+    "topicId": "4.2-09",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "對數勝率",
+    "guidePages": "4-27",
+    "topicId": "4.2-10",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "支援向量機",
+    "guidePages": "4-28～4-30",
+    "topicId": "4.2-11",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "決策樹分類器",
+    "guidePages": "4-30～4-31",
+    "topicId": "4.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "基尼不純度",
+    "guidePages": "4-30～4-31",
+    "topicId": "4.2-12",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "資訊增益",
+    "guidePages": "4-31",
+    "topicId": "4.2-13",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "分類誤差",
+    "guidePages": "4-31",
+    "topicId": "4.2-14",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "K 最近鄰分類",
+    "guidePages": "4-32～4-34",
+    "topicId": "4.2-15",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "樸素貝式分類",
+    "guidePages": "4-34～4-36",
+    "topicId": "3.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "集成式分類",
+    "guidePages": "4-36～4-40",
+    "topicId": "4.2-16",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "投票機制",
+    "guidePages": "4-36～4-40",
+    "topicId": "4.2-16",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "機率輸出",
+    "guidePages": "4-36～4-40",
+    "topicId": "4.2-16",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "Bagging",
+    "guidePages": "4-37",
+    "topicId": "4.2-17",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "Boosting",
+    "guidePages": "4-37",
+    "topicId": "4.2-18",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "隨機森林分類器",
+    "guidePages": "4-38～4-39",
+    "topicId": "4.2-19",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "梯度提升分類器",
+    "guidePages": "4-39",
+    "topicId": "4.2-20",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "分群分析",
+    "guidePages": "4-41",
+    "topicId": "4.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "k-means 分群",
+    "guidePages": "4-41～4-42",
+    "topicId": "4.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "階層式分群",
+    "guidePages": "4-42～4-43",
+    "topicId": "4.2-21",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "凝聚式階層分群",
+    "guidePages": "4-42～4-43",
+    "topicId": "4.2-21",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "分裂式階層分群",
+    "guidePages": "4-42～4-43",
+    "topicId": "4.2-21",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "DBSCAN",
+    "guidePages": "4-43～4-44",
+    "topicId": "4.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "降維技術",
+    "guidePages": "4-44",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "主成分分析（PCA）",
+    "guidePages": "4-44～4-45",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "t-SNE",
+    "guidePages": "4-45～4-47",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "UMAP",
+    "guidePages": "4-47",
+    "topicId": "4.2-22",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "關聯規則學習",
+    "guidePages": "4-48～4-49",
+    "topicId": "4.2-23",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "Apriori 演算法",
+    "guidePages": "4-48～4-49",
+    "topicId": "4.2-24",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "支持度",
+    "guidePages": "4-49",
+    "topicId": "4.2-25",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "信賴度",
+    "guidePages": "4-49",
+    "topicId": "4.2-26",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "提升度",
+    "guidePages": "4-49",
+    "topicId": "4.2-27",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "FP-Growth",
+    "guidePages": "4-49～4-50",
+    "topicId": "4.2-28",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "異常偵測",
+    "guidePages": "4-50～4-51",
+    "topicId": "4.2-29",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "孤立森林",
+    "guidePages": "4-51～4-52",
+    "topicId": "4.2-30",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "單類別支援向量機",
+    "guidePages": "4-52～4-53",
+    "topicId": "4.2-31",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "深度學習",
+    "guidePages": "4-54",
+    "topicId": "4.3-10",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "人工神經元",
+    "guidePages": "4-54～4-55",
+    "topicId": "4.3-11",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "權重",
+    "guidePages": "4-54～4-55",
+    "topicId": "4.3-11",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "偏置",
+    "guidePages": "4-54～4-55",
+    "topicId": "4.3-11",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "加權求和",
+    "guidePages": "4-54～4-55",
+    "topicId": "4.3-11",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "感知器",
+    "guidePages": "4-55～4-56",
+    "topicId": "4.3-12",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "步階激活函數",
+    "guidePages": "4-55～4-56",
+    "topicId": "4.3-12",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "感知器學習規則",
+    "guidePages": "4-55～4-56",
+    "topicId": "4.3-12",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "激活函數",
+    "guidePages": "4-57～4-58",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "ReLU",
+    "guidePages": "4-57",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "Sigmoid",
+    "guidePages": "4-57～4-58",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "前向傳播",
+    "guidePages": "4-58～4-59, 4-65",
+    "topicId": "4.3-13",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "反向傳播",
+    "guidePages": "4-59～4-61",
+    "topicId": "4.3-14",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "損失函數",
+    "guidePages": "4-61～4-62",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "優化器",
+    "guidePages": "4-61",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "均方誤差（MSE）",
+    "guidePages": "4-62",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "平均絕對誤差（MAE）",
+    "guidePages": "4-62",
+    "topicId": "3.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "交叉熵損失",
+    "guidePages": "4-61～4-62",
+    "topicId": "4.3-49",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "二元交叉熵",
+    "guidePages": "4-62",
+    "topicId": "4.3-49",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "類別交叉熵",
+    "guidePages": "4-62",
+    "topicId": "4.3-49",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "過擬合",
+    "guidePages": "4-62～4-63",
+    "topicId": "5.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "正則化技術",
+    "guidePages": "4-63～4-64",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "L1 正則化",
+    "guidePages": "4-63",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "L2 正則化",
+    "guidePages": "4-63",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "Elastic Net",
+    "guidePages": "4-64",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "Dropout",
+    "guidePages": "4-64",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "早停法",
+    "guidePages": "4-64",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "多層感知器（MLP）",
+    "guidePages": "4-64～4-67",
+    "topicId": "4.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "輸入層",
+    "guidePages": "4-65",
+    "topicId": "4.3-15",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "隱藏層",
+    "guidePages": "4-65",
+    "topicId": "4.3-16",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "輸出層",
+    "guidePages": "4-65～4-66",
+    "topicId": "4.3-17",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "卷積神經網路（CNN）",
+    "guidePages": "4-67～4-72",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "卷積層",
+    "guidePages": "4-68",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "卷積核／濾波器",
+    "guidePages": "4-68",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "權重共享",
+    "guidePages": "4-68",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "激活函數層",
+    "guidePages": "4-68",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "池化層",
+    "guidePages": "4-68～4-69",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "全連接層",
+    "guidePages": "4-69",
+    "topicId": "4.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "特徵映射",
+    "guidePages": "4-68",
+    "topicId": "4.3-18",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "最大池化",
+    "guidePages": "4-69",
+    "topicId": "4.3-19",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "平均池化",
+    "guidePages": "4-69",
+    "topicId": "4.3-20",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "AlexNet",
+    "guidePages": "4-71",
+    "topicId": "4.3-21",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "VGG",
+    "guidePages": "4-71",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "GoogLeNet（Inception）",
+    "guidePages": "4-71",
+    "topicId": "4.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "ResNet",
+    "guidePages": "4-71",
+    "topicId": "4.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "DenseNet",
+    "guidePages": "4-71～4-72",
+    "topicId": "4.3-22",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "MobileNet",
+    "guidePages": "4-72",
+    "topicId": "4.3-23",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "EfficientNet",
+    "guidePages": "4-72",
+    "topicId": "4.3-24",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "遞迴神經網路（RNN）",
+    "guidePages": "4-72～4-75",
+    "topicId": "4.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "時間上的反向傳播",
+    "guidePages": "4-73～4-74",
+    "topicId": "4.3-25",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "梯度消失",
+    "guidePages": "4-74",
+    "topicId": "4.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "梯度爆炸",
+    "guidePages": "4-74",
+    "topicId": "4.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "長短期記憶網路（LSTM）",
+    "guidePages": "4-75",
+    "topicId": "4.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "門控循環單元",
+    "guidePages": "4-75",
+    "topicId": "4.3-26",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "雙向遞迴神經網路",
+    "guidePages": "4-75",
+    "topicId": "4.3-27",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "深度遞迴神經網路",
+    "guidePages": "4-76",
+    "topicId": "4.3-28",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "Transformer 架構",
+    "guidePages": "4-76～4-84",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "編碼器堆疊",
+    "guidePages": "4-77",
+    "topicId": "4.3-29",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "解碼器堆疊",
+    "guidePages": "4-77～4-78",
+    "topicId": "4.3-30",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "帶遮罩的多頭自注意力",
+    "guidePages": "4-77～4-78",
+    "topicId": "4.3-30",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "編碼器－解碼器注意力",
+    "guidePages": "4-77～4-78",
+    "topicId": "4.3-30",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "自迴歸生成",
+    "guidePages": "4-77～4-78",
+    "topicId": "4.3-30",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "注意力機制",
+    "guidePages": "4-78～4-79",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "自注意力",
+    "guidePages": "4-79～4-80",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "多頭注意力機制",
+    "guidePages": "4-80",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "位置編碼",
+    "guidePages": "4-80～4-81",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "查詢、鍵與值",
+    "guidePages": "4-79",
+    "topicId": "4.3-31",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "查詢向量",
+    "guidePages": "4-79",
+    "topicId": "4.3-31",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "鍵向量",
+    "guidePages": "4-79",
+    "topicId": "4.3-31",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "值向量",
+    "guidePages": "4-79",
+    "topicId": "4.3-31",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "Transformer 前饋網路",
+    "guidePages": "4-81",
+    "topicId": "4.3-32",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "殘差連接",
+    "guidePages": "4-81",
+    "topicId": "4.3-06",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "層歸一化",
+    "guidePages": "4-81",
+    "topicId": "4.3-33",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "內部協變偏移",
+    "guidePages": "4-81",
+    "topicId": "4.3-34",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "遷移學習與預訓練模型",
+    "guidePages": "4-82～4-83",
+    "topicId": "4.3-07",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "微調",
+    "guidePages": "4-83",
+    "topicId": "4.3-07",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "BERT",
+    "guidePages": "4-83",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "GPT 系列",
+    "guidePages": "4-83",
+    "topicId": "4.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.3",
+    "concept": "T5",
+    "guidePages": "4-84",
+    "topicId": "4.3-35",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "視覺 Transformer",
+    "guidePages": "4-84",
+    "topicId": "4.3-36",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "長序列 Transformer",
+    "guidePages": "4-84",
+    "topicId": "4.3-37",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "生成式模型",
+    "guidePages": "4-84, 4-86",
+    "topicId": "4.3-38",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "自編碼器",
+    "guidePages": "4-85～4-87",
+    "topicId": "4.3-39",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "自編碼器的編碼器",
+    "guidePages": "4-85～4-87",
+    "topicId": "4.3-39",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "自編碼器的解碼器",
+    "guidePages": "4-85～4-87",
+    "topicId": "4.3-39",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "瓶頸層",
+    "guidePages": "4-85～4-87",
+    "topicId": "4.3-39",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "重構誤差",
+    "guidePages": "4-85～4-87",
+    "topicId": "4.3-39",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "生成對抗網路",
+    "guidePages": "4-87～4-89",
+    "topicId": "4.3-40",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "生成器",
+    "guidePages": "4-87～4-89",
+    "topicId": "4.3-40",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "判別器",
+    "guidePages": "4-87～4-89",
+    "topicId": "4.3-40",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "模式崩潰",
+    "guidePages": "4-89",
+    "topicId": "4.3-41",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "TensorFlow",
+    "guidePages": "4-90",
+    "topicId": "4.3-42",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "Keras",
+    "guidePages": "4-90～4-91",
+    "topicId": "4.3-43",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "PyTorch",
+    "guidePages": "4-91～4-92",
+    "topicId": "4.3-44",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "自動微分",
+    "guidePages": "4-92",
+    "topicId": "4.3-45",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "JAX",
+    "guidePages": "4-92",
+    "topicId": "4.3-46",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "MXNet",
+    "guidePages": "4-92",
+    "topicId": "4.3-47",
+    "status": "new"
+  },
+  {
+    "section": "4.3",
+    "concept": "PaddlePaddle",
+    "guidePages": "4-92",
+    "topicId": "4.3-48",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "平均平方誤差（MSE）",
+    "guidePages": "4-13",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "均方根誤差（RMSE）",
+    "guidePages": "4-13",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "平均絕對誤差（MAE）",
+    "guidePages": "4-13",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "決定係數（R²）",
+    "guidePages": "4-13",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "準確率（Accuracy）",
+    "guidePages": "4-26～4-27",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "精確率（Precision）",
+    "guidePages": "4-26～4-27",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "召回率（Recall）",
+    "guidePages": "4-26～4-27",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "F1-score",
+    "guidePages": "4-26～4-27",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "多重共線性",
+    "guidePages": "4-14",
+    "topicId": "5.3-05",
+    "status": "existing"
+  },
+  {
+    "section": "4.2",
+    "concept": "調整後決定係數",
+    "guidePages": "4-13, 4-15",
+    "topicId": "4.2-32",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "線性關係假設",
+    "guidePages": "4-13～4-14",
+    "topicId": "4.2-33",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "誤差常態分佈",
+    "guidePages": "4-14",
+    "topicId": "4.2-34",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "變異數齊一性",
+    "guidePages": "4-14",
+    "topicId": "4.2-35",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "誤差獨立性",
+    "guidePages": "4-14",
+    "topicId": "4.2-36",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "ROC-AUC",
+    "guidePages": "4-27",
+    "topicId": "4.2-37",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "維度詛咒",
+    "guidePages": "4-33～4-34",
+    "topicId": "4.2-38",
+    "status": "new"
+  },
+  {
+    "section": "4.2",
+    "concept": "零機率與平滑",
+    "guidePages": "4-36",
+    "topicId": "4.2-39",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "缺失值處理",
+    "guidePages": "5-2～5-3",
+    "topicId": "5.1-08",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "缺失值刪除法",
+    "guidePages": "5-2",
+    "topicId": "5.1-09",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "缺失值填補法",
+    "guidePages": "5-2～5-3",
+    "topicId": "5.1-10",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "異常值偵測與處理",
+    "guidePages": "5-3",
+    "topicId": "5.1-11",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "重複與一致性檢查",
+    "guidePages": "5-3～5-4",
+    "topicId": "5.1-12",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "型別與時間格式",
+    "guidePages": "5-4",
+    "topicId": "5.1-13",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "清理策略與資料血緣",
+    "guidePages": "5-4～5-5",
+    "topicId": "5.1-14",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "特徵選擇",
+    "guidePages": "5-5",
+    "topicId": "5.1-15",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "過濾法",
+    "guidePages": "5-5",
+    "topicId": "5.1-16",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "包裝法",
+    "guidePages": "5-5",
+    "topicId": "5.1-17",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "嵌入法",
+    "guidePages": "5-5～5-6",
+    "topicId": "5.1-18",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "線性判別分析",
+    "guidePages": "5-6",
+    "topicId": "5.1-19",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "UMAP 降維",
+    "guidePages": "5-6",
+    "topicId": "5.1-20",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "奇異值分解",
+    "guidePages": "5-6",
+    "topicId": "5.1-21",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "穩健標準化",
+    "guidePages": "5-7",
+    "topicId": "5.1-22",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "平方根與立方根轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-23",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "冪次分布轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-24",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "時間與週期編碼",
+    "guidePages": "5-9",
+    "topicId": "5.1-25",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "文字資料增強",
+    "guidePages": "5-9",
+    "topicId": "5.1-26",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "時序資料增強",
+    "guidePages": "5-9",
+    "topicId": "5.1-27",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "SMOTE 合成樣本",
+    "guidePages": "5-10",
+    "topicId": "5.1-28",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "特徵工程策略",
+    "guidePages": "5-10",
+    "topicId": "5.1-29",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "主成分分析（PCA）",
+    "guidePages": "5-6",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "t-SNE",
+    "guidePages": "5-6",
+    "topicId": "3.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "Min-Max 正規化",
+    "guidePages": "5-7",
+    "topicId": "5.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "Z 分數標準化",
+    "guidePages": "5-7",
+    "topicId": "5.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "資料尺度調整",
+    "guidePages": "5-6～5-7",
+    "topicId": "5.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "對數轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "標籤編碼",
+    "guidePages": "5-8",
+    "topicId": "5.1-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "獨熱編碼",
+    "guidePages": "5-8",
+    "topicId": "5.1-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "目標編碼",
+    "guidePages": "5-8",
+    "topicId": "5.1-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "類別資料處理",
+    "guidePages": "5-7～5-8",
+    "topicId": "5.1-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "圖像資料增強",
+    "guidePages": "5-9",
+    "topicId": "5.1-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.1",
+    "concept": "資料增強",
+    "guidePages": "5-9～5-10",
+    "topicId": "5.1-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.2",
+    "concept": "模型選擇與任務配對",
+    "guidePages": "5-11～5-13",
+    "topicId": "5.2-02",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "資料規模與選模",
+    "guidePages": "5-13～5-14",
+    "topicId": "5.2-03",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "運算與部署限制",
+    "guidePages": "5-15",
+    "topicId": "5.2-04",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "偏差與變異權衡",
+    "guidePages": "5-16",
+    "topicId": "5.2-05",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "模型解釋性需求",
+    "guidePages": "5-14～5-15",
+    "topicId": "5.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "訓練驗證測試分工",
+    "guidePages": "5-17～5-18",
+    "topicId": "5.3-08",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "全量梯度下降",
+    "guidePages": "5-18",
+    "topicId": "5.3-09",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "隨機梯度下降",
+    "guidePages": "5-18",
+    "topicId": "5.3-10",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "小批次訓練",
+    "guidePages": "5-19",
+    "topicId": "5.3-11",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "學習率調整策略",
+    "guidePages": "5-19",
+    "topicId": "5.3-12",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "訓練紀錄與監控",
+    "guidePages": "5-20",
+    "topicId": "5.3-13",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "混淆矩陣",
+    "guidePages": "5-20～5-21",
+    "topicId": "5.3-14",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "ROC 與 AUC",
+    "guidePages": "5-22",
+    "topicId": "5.3-15",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "綜合評估與業務指標",
+    "guidePages": "5-24～5-25",
+    "topicId": "5.3-16",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "類別重加權",
+    "guidePages": "5-25, 5-49",
+    "topicId": "5.3-17",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "不平衡的異常值建模",
+    "guidePages": "5-25",
+    "topicId": "5.3-18",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "重複交叉驗證",
+    "guidePages": "5-26, 5-28～5-29",
+    "topicId": "5.3-19",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "穩定性視覺分析",
+    "guidePages": "5-26",
+    "topicId": "5.3-20",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "K-fold 交叉驗證",
+    "guidePages": "5-26～5-27",
+    "topicId": "5.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "Stratified K-fold",
+    "guidePages": "5-27～5-28",
+    "topicId": "5.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "LOOCV",
+    "guidePages": "5-28",
+    "topicId": "5.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "準確率",
+    "guidePages": "5-21",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "精確率",
+    "guidePages": "5-21",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "召回率",
+    "guidePages": "5-21",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "F1 分數",
+    "guidePages": "5-21",
+    "topicId": "5.3-03",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "均方誤差",
+    "guidePages": "5-22～5-23",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "平均絕對誤差",
+    "guidePages": "5-23",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "均方根誤差",
+    "guidePages": "5-23",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "決定係數",
+    "guidePages": "5-23～5-24",
+    "topicId": "5.3-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "早停策略與訓練終止準則",
+    "guidePages": "5-19～5-20",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.3",
+    "concept": "類別不平衡處理與評估",
+    "guidePages": "5-25",
+    "topicId": "5.3-07",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "批次大小",
+    "guidePages": "5-32～5-33",
+    "topicId": "5.4-05",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "網路深度與寬度",
+    "guidePages": "5-33～5-35",
+    "topicId": "5.4-06",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "Softmax",
+    "guidePages": "5-35～5-36",
+    "topicId": "5.4-07",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "Tanh",
+    "guidePages": "5-37",
+    "topicId": "5.4-08",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "正則化係數",
+    "guidePages": "5-42～5-43",
+    "topicId": "5.4-09",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "音訊資料增強",
+    "guidePages": "5-47",
+    "topicId": "5.4-10",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "過採樣",
+    "guidePages": "5-48",
+    "topicId": "5.4-11",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "結構化剪枝",
+    "guidePages": "5-50～5-51",
+    "topicId": "5.4-12",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "非結構化剪枝",
+    "guidePages": "5-50～5-51",
+    "topicId": "5.4-13",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "量化感知訓練",
+    "guidePages": "5-51",
+    "topicId": "5.4-14",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "混合精度訓練",
+    "guidePages": "5-51～5-52",
+    "topicId": "5.4-15",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "超參數",
+    "guidePages": "5-30",
+    "topicId": "3.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "學習率",
+    "guidePages": "5-31～5-32",
+    "topicId": "3.3-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "激活函數",
+    "guidePages": "5-35",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "ReLU",
+    "guidePages": "5-36",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Sigmoid",
+    "guidePages": "5-36～5-37",
+    "topicId": "4.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "優化器",
+    "guidePages": "5-37～5-39",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Momentum",
+    "guidePages": "5-39～5-40",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Adagrad",
+    "guidePages": "5-40～5-41",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Adam",
+    "guidePages": "5-41～5-42",
+    "topicId": "3.3-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "L1 正則化",
+    "guidePages": "5-43～5-44",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "L2 正則化",
+    "guidePages": "5-44～5-45",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Elastic Net",
+    "guidePages": "5-45",
+    "topicId": "5.4-01",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Dropout",
+    "guidePages": "5-45～5-46",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "Early Stopping",
+    "guidePages": "5-46",
+    "topicId": "5.4-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "資料增強",
+    "guidePages": "5-47",
+    "topicId": "5.1-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "重取樣",
+    "guidePages": "5-48～5-49",
+    "topicId": "5.3-07",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "欠採樣",
+    "guidePages": "5-48",
+    "topicId": "5.4-16",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "知識蒸餾",
+    "guidePages": "5-49～5-50",
+    "topicId": "5.4-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "模型剪枝",
+    "guidePages": "5-50～5-51",
+    "topicId": "5.4-04",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "量化",
+    "guidePages": "5-51",
+    "topicId": "5.4-04",
+    "status": "existing"
+  },
+  {
+    "section": "6.1",
+    "concept": "直接識別風險",
+    "guidePages": "6-3",
+    "topicId": "6.1-03",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "間接識別風險",
+    "guidePages": "6-3",
+    "topicId": "6.1-04",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "再識別風險",
+    "guidePages": "6-3",
+    "topicId": "6.1-05",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "資料盤點與分類",
+    "guidePages": "6-4～6-5",
+    "topicId": "6.1-06",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "隱私影響評估",
+    "guidePages": "6-5～6-6",
+    "topicId": "6.1-07",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "風險矩陣與等級",
+    "guidePages": "6-6",
+    "topicId": "6.1-08",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "再識別模擬測試",
+    "guidePages": "6-7",
+    "topicId": "6.1-09",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "資料匿名化",
+    "guidePages": "6-7～6-9",
+    "topicId": "6.1-10",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "遮蔽",
+    "guidePages": "6-8",
+    "topicId": "6.1-11",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "雜湊處理",
+    "guidePages": "6-8",
+    "topicId": "6.1-12",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "泛化",
+    "guidePages": "6-8～6-9",
+    "topicId": "6.1-13",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "分桶",
+    "guidePages": "6-9",
+    "topicId": "6.1-14",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "隨機擾動",
+    "guidePages": "6-9",
+    "topicId": "6.1-15",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "K-匿名",
+    "guidePages": "6-10",
+    "topicId": "6.1-16",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "L-多樣性",
+    "guidePages": "6-10",
+    "topicId": "6.1-17",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "T-接近性",
+    "guidePages": "6-10",
+    "topicId": "6.1-18",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "合法來源與告知同意",
+    "guidePages": "6-11～6-12",
+    "topicId": "6.1-19",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "資料最小化與目的限制",
+    "guidePages": "6-12",
+    "topicId": "6.1-20",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "透明度與紀錄保存",
+    "guidePages": "6-12～6-13",
+    "topicId": "6.1-21",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "聯邦學習",
+    "guidePages": "6-10～6-11",
+    "topicId": "6.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "6.1",
+    "concept": "同態加密",
+    "guidePages": "6-11",
+    "topicId": "6.1-01",
+    "status": "existing"
+  },
+  {
+    "section": "6.1",
+    "concept": "跨境傳輸規範",
+    "guidePages": "6-13",
+    "topicId": "6.1-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "內容偏誤",
+    "guidePages": "6-15",
+    "topicId": "6.2-03",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "演算法偏見",
+    "guidePages": "6-16",
+    "topicId": "6.2-04",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "目標函數偏誤",
+    "guidePages": "6-16",
+    "topicId": "6.2-05",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "正規化與簡化偏誤",
+    "guidePages": "6-16",
+    "topicId": "6.2-06",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "對抗式訓練不足",
+    "guidePages": "6-16",
+    "topicId": "6.2-07",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "偏見的潛在影響",
+    "guidePages": "6-16～6-17",
+    "topicId": "6.2-08",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "機會平等",
+    "guidePages": "6-18",
+    "topicId": "6.2-09",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "均衡機率",
+    "guidePages": "6-18～6-19",
+    "topicId": "6.2-10",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "不利影響比",
+    "guidePages": "6-19",
+    "topicId": "6.2-11",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性工具 AIF360",
+    "guidePages": "6-19～6-20",
+    "topicId": "6.2-12",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性工具 Fairlearn",
+    "guidePages": "6-20",
+    "topicId": "6.2-13",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "資料重新抽樣",
+    "guidePages": "6-21",
+    "topicId": "6.2-14",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "特徵去偏處理",
+    "guidePages": "6-21",
+    "topicId": "6.2-15",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性約束訓練",
+    "guidePages": "6-21",
+    "topicId": "6.2-16",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "對抗式去偏模型",
+    "guidePages": "6-22",
+    "topicId": "6.2-17",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "結果校準",
+    "guidePages": "6-23",
+    "topicId": "6.2-18",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平治理與問責",
+    "guidePages": "6-23～6-24",
+    "topicId": "6.2-19",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "多元團隊與公平教育",
+    "guidePages": "6-24",
+    "topicId": "6.2-20",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性評估與稽核",
+    "guidePages": "6-24～6-25",
+    "topicId": "6.2-21",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平資訊揭露與溝通",
+    "guidePages": "6-25",
+    "topicId": "6.2-22",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "資料代表性與偏誤風險",
+    "guidePages": "6-14～6-15",
+    "topicId": "6.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "來源偏誤",
+    "guidePages": "6-15",
+    "topicId": "6.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "製程偏誤",
+    "guidePages": "6-15～6-16",
+    "topicId": "6.2-01",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "群體平等率（Demographic Parity）",
+    "guidePages": "6-17～6-18",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "資料前處理去偏",
+    "guidePages": "6-20～6-21",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "模型內部處理",
+    "guidePages": "6-21～6-22",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性正規化",
+    "guidePages": "6-22",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "模型後處理",
+    "guidePages": "6-22～6-23",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "6.2",
+    "concept": "結果門檻調整",
+    "guidePages": "6-22",
+    "topicId": "6.2-02",
+    "status": "existing"
+  },
+  {
+    "section": "5.4",
+    "concept": "SGD",
+    "guidePages": "5-39",
+    "topicId": "5.3-10",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "類別權重調整",
+    "guidePages": "5-49",
+    "topicId": "5.3-17",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "SMOTE",
+    "guidePages": "5-25",
+    "topicId": "5.1-28",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "去識別化或匿名化處理",
+    "guidePages": "6-12",
+    "topicId": "6.1-10",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "資料匿名化與泛化",
+    "guidePages": "6-21",
+    "topicId": "6.1-13",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "均值、中位數、眾數填補",
+    "guidePages": "5-2",
+    "topicId": "5.1-10",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "相似樣本填補",
+    "guidePages": "5-2",
+    "topicId": "5.1-10",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "預測模型填補",
+    "guidePages": "5-3",
+    "topicId": "5.1-10",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "缺失指標編碼",
+    "guidePages": "5-3",
+    "topicId": "5.1-10",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "重複資料偵測",
+    "guidePages": "5-4",
+    "topicId": "5.1-12",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "單位與格式標準化",
+    "guidePages": "5-4",
+    "topicId": "5.1-12",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "時間資料解析",
+    "guidePages": "5-4",
+    "topicId": "5.1-13",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "資料處理紀錄與流程可追溯性",
+    "guidePages": "5-4～5-5",
+    "topicId": "5.1-14",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "平方根轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-23",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "立方根轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-23",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "Box-Cox 轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-24",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "Yeo-Johnson 轉換",
+    "guidePages": "5-7",
+    "topicId": "5.1-24",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "表格式資料增強",
+    "guidePages": "5-10",
+    "topicId": "5.1-28",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "分類任務",
+    "guidePages": "5-11～5-12",
+    "topicId": "5.2-02",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "迴歸任務",
+    "guidePages": "5-12",
+    "topicId": "5.2-02",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "非監督學習任務",
+    "guidePages": "5-12～5-13",
+    "topicId": "5.2-02",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "序列與時間序列任務",
+    "guidePages": "5-13",
+    "topicId": "5.2-02",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "小型資料集的模型選擇",
+    "guidePages": "5-13",
+    "topicId": "5.2-03",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "中型資料集的模型選擇",
+    "guidePages": "5-14",
+    "topicId": "5.2-03",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "大型資料集的模型選擇",
+    "guidePages": "5-14",
+    "topicId": "5.2-03",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "資源受限場景",
+    "guidePages": "5-15",
+    "topicId": "5.2-04",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "資源充足場景",
+    "guidePages": "5-15",
+    "topicId": "5.2-04",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "即時推論需求",
+    "guidePages": "5-15",
+    "topicId": "5.2-04",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "偏差（Bias）",
+    "guidePages": "5-16",
+    "topicId": "5.2-05",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "變異（Variance）",
+    "guidePages": "5-16",
+    "topicId": "5.2-05",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "訓練集",
+    "guidePages": "5-17",
+    "topicId": "5.3-08",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "驗證集",
+    "guidePages": "5-17",
+    "topicId": "5.3-08",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "測試集",
+    "guidePages": "5-18",
+    "topicId": "5.3-08",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "固定學習率",
+    "guidePages": "5-19",
+    "topicId": "5.3-12",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "遞減學習率",
+    "guidePages": "5-19",
+    "topicId": "5.3-12",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "動態學習率調整",
+    "guidePages": "5-19",
+    "topicId": "5.3-12",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "學習率預熱策略",
+    "guidePages": "5-19",
+    "topicId": "5.3-12",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "業務導向與自定義效能衡量",
+    "guidePages": "5-25",
+    "topicId": "5.3-16",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "網路深度",
+    "guidePages": "5-33～5-34",
+    "topicId": "5.4-06",
+    "status": "new"
+  },
+  {
+    "section": "5.4",
+    "concept": "網路寬度",
+    "guidePages": "5-34",
+    "topicId": "5.4-06",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "開放層級",
+    "guidePages": "6-4",
+    "topicId": "6.1-06",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "敏感度層級",
+    "guidePages": "6-5",
+    "topicId": "6.1-06",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "風險矩陣",
+    "guidePages": "6-6",
+    "topicId": "6.1-08",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "風險等級",
+    "guidePages": "6-6",
+    "topicId": "6.1-08",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "交叉比對測試",
+    "guidePages": "6-7",
+    "topicId": "6.1-09",
+    "status": "new"
+  },
+  {
+    "section": "6.1",
+    "concept": "欄位組合分析",
+    "guidePages": "6-7",
+    "topicId": "6.1-09",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "建立公平性政策與標準",
+    "guidePages": "6-23",
+    "topicId": "6.2-19",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "跨部門公平性審查委員會",
+    "guidePages": "6-24",
+    "topicId": "6.2-19",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "責任與問責機制",
+    "guidePages": "6-24",
+    "topicId": "6.2-19",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "定期公平性稽核",
+    "guidePages": "6-25",
+    "topicId": "6.2-21",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "公平性指標監控系統",
+    "guidePages": "6-25",
+    "topicId": "6.2-21",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "第三方獨立驗證",
+    "guidePages": "6-25",
+    "topicId": "6.2-22",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "異常值截尾與轉換",
+    "guidePages": "5-3",
+    "topicId": "5.1-30",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "模型解釋性層級",
+    "guidePages": "5-14～5-15",
+    "topicId": "5.2-06",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "殘差平方和",
+    "guidePages": "5-22, 5-24",
+    "topicId": "5.3-21",
+    "status": "new"
+  },
+  {
+    "section": "5.3",
+    "concept": "總變異平方和",
+    "guidePages": "5-24",
+    "topicId": "5.3-22",
+    "status": "new"
+  },
+  {
+    "section": "5.1",
+    "concept": "異常值標記保留",
+    "guidePages": "5-3",
+    "topicId": "5.1-11",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "高解釋性模型",
+    "guidePages": "5-14",
+    "topicId": "5.2-06",
+    "status": "new"
+  },
+  {
+    "section": "5.2",
+    "concept": "低解釋性模型",
+    "guidePages": "5-14～5-15",
+    "topicId": "5.2-06",
+    "status": "new"
+  },
+  {
+    "section": "6.2",
+    "concept": "模型偏見與歧視",
+    "guidePages": "6-16",
+    "topicId": "6.2-04",
+    "status": "new"
+  }
+]

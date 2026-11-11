@@ -65,6 +65,8 @@ svg.focus .edge:not(.hl){stroke-opacity:.05}
 svg.focus .node:not(.nb):not(.dim){opacity:.35}
 .node{cursor:pointer}
 .node .dot{stroke-width:2.2}
+.node.guide .dot{stroke-dasharray:3 2;stroke-width:2.6}
+.node.excluded{display:none}
 .node .halo{fill:none;stroke:var(--accent);stroke-width:2.5;opacity:0}
 .node.sel .halo{opacity:1}
 .node .wr{fill:none;stroke:var(--bad);stroke-width:3;opacity:0}
@@ -75,6 +77,7 @@ svg.focus .node:not(.nb):not(.dim){opacity:.35}
 .node.lift .dot{stroke:#fff;stroke-width:3.5}
 .node text.lb{fill:var(--text);text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:4px;pointer-events:none}
 svg.far .node.small text.lb{display:none}
+svg.far .node.small.sel text.lb{display:block}
 .node.dim{opacity:.12}
 .maptools{position:absolute;left:calc(12px + var(--sal));bottom:12px;display:flex;flex-direction:column;gap:6px}
 .chip-btn{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:14px;min-height:40px;white-space:nowrap}
@@ -213,6 +216,7 @@ textarea.out{min-height:260px;font-size:14px}
     <div class="filters" id="filters">
       <button class="chip-btn on" data-f="all">全部</button>
       <button class="chip-btn" data-f="hot" id="hotBtn">常考</button>
+      <button class="chip-btn" id="examOnly" aria-pressed="false">只看考過的</button>
       <button class="chip-btn" data-f="todo">還不會</button>
       <button class="chip-btn red" data-f="wrong">錯題</button>
       <button class="chip-btn" data-f="X">指引沒寫</button>
@@ -333,7 +337,7 @@ const figHTML = arr => (arr || []).map(f => `<figure class="qfig"><a href="${esc
 const ctxHTML = c => c ? `<details class="ctx" open><summary>${esc(c.label || "題組共用資料")}</summary><div class="ctxtext">${esc(c.text || "")}</div>${figHTML(c.figures)}${c.pre ? `<pre class="tbl">${esc(c.pre)}</pre>` : ""}</details>` : "";
 
 /* ================= 配置 ================= */
-const R = t => ui.size === "prio"
+const R = t => t.origin === "guide" ? 10 : ui.size === "prio"
   ? Math.min(34, 7 + 6 * Math.sqrt(weighted(t) / 2.5 + 1.5 * tStat(t).wrong))
   : Math.min(30, 7 + 6 * Math.sqrt(t.examHits || 0));
 const LY = Object.assign({spread:.8}, M.layout || {});
@@ -380,6 +384,19 @@ function layout() {
     if (!movedAny) break;
   }
   topics.forEach(t => { if (pos[t.id]) { t.x = pos[t.id][0]; t.y = pos[t.id][1]; } });   // 自己拖過的位置優先
+  // 舊裝置的拖曳位置仍保留；只將相碰的圓分開，避免新增星被蓋住。
+  for (let it = 0; it < 120; it++) {
+    let overlaps = false;
+    for (let i = 0; i < topics.length; i++) for (let j = i + 1; j < topics.length; j++) {
+      const a = topics[i], b = topics[j], dx = b.x - a.x, dy = b.y - a.y;
+      const d = Math.hypot(dx, dy), min = a.r + b.r + 8;
+      if (d >= min) continue;
+      overlaps = true;
+      const ux = d ? dx / d : 1, uy = d ? dy / d : 0, shift = (min - d) / 2;
+      a.x -= ux * shift; a.y -= uy * shift; b.x += ux * shift; b.y += uy * shift;
+    }
+    if (!overlaps) break;
+  }
   secs.forEach(bounds);
 }
 function bounds(s) {
@@ -407,8 +424,9 @@ function draw() {
   nodeEls = {}; hitEls = []; textEls = [];
   topics.forEach(t => {
     const c = color(chOf(t));
-    const g = mk("g", {class:"node" + ((t.examHits || 0) < M.hotMin ? " small" : ""), transform:`translate(${t.x},${t.y})`, role:"button", "aria-label":t.title}, gNode);
-    g._id = t.id;
+    const g = mk("g", {class:"node" + (t.origin === "guide" ? " guide" : "") + ((t.examHits || 0) < M.hotMin ? " small" : ""), transform:`translate(${t.x},${t.y})`, role:"button", "aria-label":t.title}, gNode);
+    g._id = t.id; g.dataset.id = t.id;
+    mk("title", {}, g).textContent = t.title + (t.origin === "guide" ? "（指引補充）" : "");
     const hit = mk("circle", {class:"hit", r:t.r}, g); hit._r = t.r; hitEls.push(hit);
     mk("circle", {class:"wr", r:t.r + 4}, g);
     mk("circle", {class:"halo", r:t.r + 8}, g);
@@ -475,15 +493,25 @@ function apply() {
   const k = view.w / W(), far = k > 1.3;
   svg.classList.toggle("far", far);
   hitEls.forEach(h => h.setAttribute("r", Math.max(h._r + 4, 22 * k)));   // 手指點擊範圍至少 44px
-  const fs = Math.min(15, Math.max(11.5, 12 * k));
+  const fs = Math.max(11.5, 10.5 * k);
   textEls.forEach(t => { t.setAttribute("font-size", fs); t.setAttribute("y", t._r + fs + 2); const s = far ? t._short : t._full; if (t.textContent !== s) t.textContent = s; });
-  const ls = Math.min(Math.max(16, 15 * k), 38);
+  const ls = Math.max(16, 12 * k);
   labEls.forEach(l => { l.setAttribute("font-size", ls); const s = far ? l._short : l._full; if (l.textContent !== s) l.textContent = s; });
+  const occupied = labEls.map(l => l.getBoundingClientRect());
+  textEls.slice().sort((a, b) => Number(b.parentNode.classList.contains("sel")) - Number(a.parentNode.classList.contains("sel"))).forEach(t => {
+    t.style.visibility = "";
+    if (getComputedStyle(t).display === "none" || t.closest(".excluded")) return;
+    const r = t.getBoundingClientRect();
+    const overlap = occupied.some(o => r.left < o.right + 3 && r.right + 3 > o.left && r.top < o.bottom + 3 && r.bottom + 3 > o.top);
+    t.style.visibility = overlap ? "hidden" : "visible";
+    if (!overlap) occupied.push(r);
+  });
 }
 function fitRect(x0, y0, w0, h0) {
-  const aw = Math.max(80, W() - coveredRight()), ah = Math.max(80, H() - covered());
+  const top = isNarrow() && !isSideSheet() ? 112 : 0;
+  const aw = Math.max(80, W() - coveredRight()), ah = Math.max(80, H() - covered() - top);
   const k = Math.max(w0 / aw, h0 / ah);
-  view.w = W() * k; view.h = H() * k; view.x = x0 + w0 / 2 - aw * k / 2; view.y = y0 + h0 / 2 - ah * k / 2;
+  view.w = W() * k; view.h = H() * k; view.x = x0 + w0 / 2 - aw * k / 2; view.y = y0 + h0 / 2 - (top + ah / 2) * k;
   apply();
 }
 const resetView = () => fitRect(home.x, home.y, home.w, home.h);
@@ -550,7 +578,7 @@ svg.addEventListener("contextmenu", e => e.preventDefault());
 svg.addEventListener("click", () => { if (!moved && isNarrow()) setSheet("peek"); });
 $("zin").onclick = () => zoomAt(1 / 1.3, view.x + view.w / 2, view.y + view.h / 2);
 $("zout").onclick = () => zoomAt(1.3, view.x + view.w / 2, view.y + view.h / 2);
-$("zfit").onclick = () => resetView();
+$("zfit").onclick = () => { if (isNarrow() && !isSideSheet()) setSheet("peek"); resetView(); };
 let lastW = W();
 new ResizeObserver(() => {
   const k = view.w / lastW, cx = view.x + view.w / 2, cy = view.y + view.h / 2;
@@ -558,8 +586,9 @@ new ResizeObserver(() => {
 }).observe(svg);
 
 /* ================= 篩選與搜尋 ================= */
-let filter = "all", query = "";
+let filter = "all", query = "", examOnly = false;
 function matches(t) {
+  if (examOnly && !(t.quiz || []).length) return false;
   if (filter === "hot" && (t.examHits || 0) < M.hotMin) return false;
   if (filter === "todo" && (progress[t.id] || 0) === 2) return false;
   if (filter === "wrong" && tStat(t).open === 0) return false;
@@ -567,10 +596,19 @@ function matches(t) {
   if (!query) return true;
   return [t.title, t.summary, (t.keyPoints || []).join(" "), t.trap, toasts[t.id]].join(" ").toLowerCase().includes(query);
 }
-const refreshDim = () => topics.forEach(t => nodeEls[t.id] && nodeEls[t.id].classList.toggle("dim", !matches(t)));
+const refreshDim = () => topics.forEach(t => {
+  const g = nodeEls[t.id]; if (!g) return;
+  g.classList.toggle("dim", !matches(t));
+  g.classList.toggle("excluded", examOnly && !(t.quiz || []).length);
+});
 $("filters").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  filter = b.dataset.f; [...$("filters").children].forEach(x => x.classList.toggle("on", x === b)); refreshDim();
+  if (b.id === "examOnly") {
+    examOnly = !examOnly; b.classList.toggle("on", examOnly); b.setAttribute("aria-pressed", examOnly);
+    refreshDim(); q.dispatchEvent(new Event("input")); return;
+  }
+  filter = b.dataset.f; $("filters").querySelectorAll("[data-f]").forEach(x => x.classList.toggle("on", x === b)); refreshDim();
+  q.dispatchEvent(new Event("input"));
   if (filter === "wrong") showWrongBook();
 });
 const results = $("results"), q = $("q");
@@ -590,7 +628,7 @@ document.addEventListener("click", e => { if (!e.target.closest(".search")) resu
 
 /* ================= 進度 ================= */
 function statsHTML() {
-  const groups = [["全部", topics, "var(--accent)"]].concat(M.chapters.filter(c => c.id !== "X").map(c => [c.short || c.name, topics.filter(t => chOf(t) === c.id), c.color]));
+  const groups = [["全部", topics, "var(--accent)"], ["考古題考點", topics.filter(t => t.origin !== "guide"), "var(--accent)"], ["指引補充", topics.filter(t => t.origin === "guide"), "var(--muted)"]].concat(M.chapters.filter(c => c.id !== "X").map(c => [c.short || c.name, topics.filter(t => chOf(t) === c.id), c.color]));
   return groups.filter(g => g[1].length).map(([name, list, col]) => {
     const pct = Math.round(list.filter(t => progress[t.id] === 2).length / list.length * 100);
     return `<div class="stat"><div class="lbl">${esc(name)}（${list.length}）</div><div class="pct">${pct}%</div><div class="bar"><i style="width:${pct}%;background:${col}"></i></div></div>`;
@@ -627,6 +665,10 @@ function setSheet(state) {
   sheet = state;
   root.style.setProperty("--hh", document.querySelector("header").getBoundingClientRect().height + "px");
   if (isNarrow()) panel.style.setProperty("--sh", sheetPx(state) + "px");
+  if (isNarrow()) setTimeout(() => {
+    if (sheet !== state) return;
+    if (state === "peek") resetView(); else if (selected) flyTo(byId[selected]);
+  }, 280);
 }
 (() => {
   const g = $("grab"); let y0 = null, h0 = 0, t0 = 0;
@@ -648,7 +690,7 @@ const reveal = (to = "half") => { if (isNarrow() && (sheet === "peek" || to === 
 let selected = null;
 function select(id) {
   if (selected && nodeEls[selected]) nodeEls[selected].classList.remove("sel");
-  selected = id; if (id && nodeEls[id]) nodeEls[id].classList.add("sel"); focus(id);
+  selected = id; if (id && nodeEls[id]) nodeEls[id].classList.add("sel"); focus(id); apply();
 }
 const prog3 = id => ["○", "◐", "●"][progress[id] || 0];
 function toast(msg) { const t = $("toastMsg"); t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 1800); }
@@ -689,7 +731,7 @@ function showHome() {
     <h2>${esc(SUB.label)}・${esc(SUB.name)}</h2>
     ${SUB.credit ? `<p class="tip" style="margin-top:0">考點與解析：<a style="color:var(--accent)" href="${SUB.home}">${esc(SUB.credit)}</a>（即時讀取原作者網站）。錯題、複習、吐司記在你自己的裝置。</p>` : ""}
     ${actionsHTML()}
-    <p class="tip">點星星看說明和考題。答錯第一次就記進錯題本，隔天、再隔 2 天、再隔 4 天各考一次，連續答對就畢業。紅圈＝還有沒過的錯題。</p>
+    <p class="tip">共 ${topics.length} 顆星：考古題考點 ${topics.filter(t => t.origin !== "guide").length} 顆、指引補充 ${topics.filter(t => t.origin === "guide").length} 顆，考古題 ${allQs.length} 題。點小節名稱放大該圈，再逐顆閱讀；縮遠時會省略部分星名。點星星看說明和考題。答錯第一次就記進錯題本，隔天、再隔 2 天、再隔 4 天各考一次，連續答對就畢業。紅圈＝還有沒過的錯題。</p>
     <h3>進度</h3><div class="stats" style="display:flex;flex-wrap:wrap;overflow:visible">${statsHTML()}</div>
     <h3>先讀這些（錯題優先，再依考古題加權）</h3>
     <div class="list">${prio.map(t => { const s = tStat(t); return `<button data-id="${esc(t.id)}"><span>${prog3(t.id)} ${esc(t.title)}</span><span class="n">${s.open ? `<span style="color:var(--bad)">未過 ${s.open}</span>・` : ""}加權 ${weighted(t)}</span></button>`; }).join("")}</div>
@@ -702,6 +744,7 @@ function showHome() {
       <span><i class="sw" style="background:var(--muted);opacity:.45"></i>半亮＝讀過</span>
       <span><i class="sw" style="background:var(--muted)"></i>實心＝會了</span>
       <span><i class="sw" style="border:3px solid var(--bad)"></i>紅圈＝錯題未過</span>
+      <span><i class="sw" style="border:2px dashed var(--muted)"></i>虛線圓＝指引補充（無考古題）</span>
       <span>🍞＝寫了記憶吐司</span></div>
     <h3>章節</h3>
     <div class="list">${secs.map(s => {
@@ -757,7 +800,7 @@ function showSection(sid) {
     <div class="tip" style="margin:0">${esc(ch.name || "")}${ch.code ? "・" + esc(ch.code) : ""}</div>
     <h2 style="color:${color(s.chapter)}">${s.id === "X" ? "" : esc(s.id) + " "}${esc(s.name)}</h2>
     ${s.weight ? `<span class="tag">評鑑占比 ${esc(s.weight)}</span>` : ""}
-    <div class="list">${items.map(t => { const st = tStat(t); return `<button data-id="${esc(t.id)}"><span>${prog3(t.id)} ${esc(t.title)}${toasts[t.id] ? " 🍞" : ""}</span><span class="n">${st.open ? `<span style="color:var(--bad)">未過 ${st.open}</span>・` : ""}${t.examHits ? "考 " + t.examHits + " 次" : ""}</span></button>`; }).join("")}</div>`;
+    <div class="list">${items.map(t => { const st = tStat(t); return `<button data-id="${esc(t.id)}"><span>${prog3(t.id)} ${esc(t.title)}${toasts[t.id] ? " 🍞" : ""}</span><span class="n">${st.open ? `<span style="color:var(--bad)">未過 ${st.open}</span>・` : ""}${t.origin === "guide" ? "指引補充" : t.examHits ? "考 " + t.examHits + " 次" : "樣題"}</span></button>`; }).join("")}</div>`;
   body.querySelector(".back").onclick = showHome;
   body.querySelectorAll("[data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
   body.scrollTop = 0; reveal();
@@ -771,7 +814,7 @@ function openTopic(id, fly, scrollQi) {
   const s = secById[t.section], c = color(s.chapter), st = progress[id] || 0, ts = tStat(t);
   body.innerHTML = `<button class="back">← ${s.id === "X" ? "" : esc(s.id) + " "}${esc(s.name)}</button>
     <h2 style="color:${c}">${esc(t.title)}</h2>
-    <div>${t.examHits ? `<span class="tag hot">正式卷考過 ${t.examHits} 題</span>` : `<span class="tag">正式卷沒考過</span>`}
+    <div>${t.origin === "guide" ? `<span class="tag">指引補充</span>` : ""}${t.examHits ? `<span class="tag hot">正式卷考過 ${t.examHits} 題</span>` : `<span class="tag">正式卷沒考過</span>`}
       ${ts.open ? `<span class="tag bad">錯題未過 ${ts.open}</span>` : ts.wrong ? `<span class="tag ok">錯題都過了</span>` : ""}
       ${(t.examRefs || []).map(r => `<span class="tag">${esc(r)}</span>`).join("")}
       ${t.guidePages ? `<span class="tag">指引 p.${esc(t.guidePages)}</span>` : notInGuide(t) ? `<span class="tag">指引沒寫・考古題才有</span>` : ""}</div>
@@ -786,9 +829,9 @@ function openTopic(id, fly, scrollQi) {
     <div class="savehint" id="savehint"></div>
     ${nbrs[id].length ? `<h3>相關考點（${nbrs[id].length}）</h3><div class="rel">${nbrs[id].map(n => `<button data-id="${esc(n.id)}"><b style="color:${color(chOf(byId[n.id]))}">${prog3(n.id)} ${esc(byId[n.id].title)}</b>${n.why ? `<span>${esc(n.why)}</span>` : ""}</button>`).join("")}</div>` : ""}
     <div class="prog">${["未讀", "讀過", "會了"].map((n, i) => `<button data-st="${i}" class="${st === i ? "on" : ""}">${n}</button>`).join("")}</div>
-    <div class="tip">「會了」＝蓋住說明能講出定義和一個例子，而且下面的題目都答對。</div>
+    <div class="tip">「會了」＝蓋住說明能講出定義和一個例子${(t.quiz || []).length ? "，而且下面的題目都答對" : ""}。</div>
     <div class="row-acts"><button class="chip-btn" id="sumBtn">產生外出學習摘要</button></div>
-    ${(t.quiz || []).length ? `<h3>考題（${t.quiz.length}）</h3>` : ""}<div id="quizzes"></div>`;
+    ${(t.quiz || []).length ? `<h3>考題（${t.quiz.length}）</h3><div id="quizzes"></div>` : `<h3>考題</h3><p class="tip" id="noQuiz">指引補充考點：正式卷與樣題沒出過，沒有考古題可練</p>`}`;
   body.querySelector(".back").onclick = () => showSection(s.id);
   body.querySelectorAll(".rel [data-id]").forEach(b => b.onclick = () => openTopic(b.dataset.id, true));
   body.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { setProgress(id, +b.dataset.st); body.querySelectorAll("[data-st]").forEach(x => x.classList.toggle("on", x === b)); });
@@ -990,7 +1033,7 @@ if (M.examDate) {
   const days = Math.ceil((new Date(M.examDate + "T00:00:00") - new Date(new Date().toDateString())) / 864e5);
   $("days").textContent = days > 0 ? days : days === 0 ? "今天" : "—";
 }
-draw(); renderStats(); showHome(); setSheet(isNarrow() ? "half" : sheet);
+draw(); renderStats(); showHome(); setSheet(isNarrow() ? "peek" : sheet);
 requestAnimationFrame(() => { resetView(); lastW = W(); });
 /* 深連結：#t=考點id（例 #t=5.3-05）直接開該考點；#s=小節id（例 #s=5.3）開整節；給複習計畫網頁用 */
 const openFromHash = () => { const mt = /[#&]t=([^&]+)/.exec(location.hash), ms = /[#&]s=([^&]+)/.exec(location.hash); if (mt) { const id = decodeURIComponent(mt[1]); if (byId[id]) setTimeout(() => openTopic(id, true), 350); } else if (ms) { const sid = decodeURIComponent(ms[1]); const s = secs.find(x => x.id === sid); if (s) setTimeout(() => { showSection(s.id); zoomSection(s); }, 350); } };

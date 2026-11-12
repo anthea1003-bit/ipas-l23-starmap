@@ -728,7 +728,7 @@ window.MAP_DATA = {
     {
      "concept": "損失函數與輸出層配對",
      "status": "🟢",
-     "date": "2026-11-10"
+     "date": "2026-11-12"
     }
    ],
    "quiz": [

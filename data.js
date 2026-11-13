@@ -2428,7 +2428,7 @@ window.MAP_DATA = {
     {
      "concept": "SHAP",
      "status": "⚪",
-     "date": "-"
+     "date": "2026-11-13"
     },
     {
      "concept": "內在可解釋模型選擇",
@@ -3436,8 +3436,8 @@ window.MAP_DATA = {
    "mastery": [
     {
      "concept": "模型壓縮三選一 量化剪枝蒸餾",
-     "status": "🟢",
-     "date": "2026-10-01",
+     "status": "⚪",
+     "date": "2026-11-13",
      "note": "只驗收過蒸餾一題"
     }
    ],
